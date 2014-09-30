@@ -1,6 +1,7 @@
 package com.shopstuffs.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * User: Jama
@@ -8,7 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "attribute")
-public class Attribute {
+public class Attribute implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "attribute_id")

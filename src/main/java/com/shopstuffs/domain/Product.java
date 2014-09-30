@@ -1,22 +1,12 @@
 package com.shopstuffs.domain;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.joda.deser.LocalDateDeserializer;
-import com.shopstuffs.domain.util.CustomLocalDateSerializer;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Type;
-import org.joda.time.LocalDate;
-
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
-import java.util.Date;
 
 /**
  * A Product.
@@ -24,7 +14,7 @@ import java.util.Date;
 @Entity
 @Table(name = "T_PRODUCT")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Product implements Serializable {
+public class Product extends AbstractAuditingEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -50,16 +40,6 @@ public class Product implements Serializable {
 
     @Column(name = "rental_price")
     private BigDecimal rentalPrice;
-
-    @Column(name = "created_date")
-    private Date createdDate;
-
-    @Column(name = "last_modified_date")
-    private Date lastModifiedDate;
-
-    @JoinColumn(name = "last_modifier")
-    @OneToOne(fetch = FetchType.LAZY)
-    private User lastModifier;
 
     @OneToMany(mappedBy = "productId")
     private Collection<Image> images;
@@ -96,15 +76,6 @@ public class Product implements Serializable {
 
         return true;
     }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -169,22 +140,6 @@ public class Product implements Serializable {
         this.rentalPrice = rentalPrice;
     }
 
-    public Date getLastModifiedDate() {
-        return lastModifiedDate;
-    }
-
-    public void setLastModifiedDate(Date lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
-    }
-
-    public User getLastModifier() {
-        return lastModifier;
-    }
-
-    public void setLastModifier(User lastModifier) {
-        this.lastModifier = lastModifier;
-    }
-
     public Collection<Image> getImages() {
         return images;
     }
@@ -210,9 +165,6 @@ public class Product implements Serializable {
                 ", attributes=" + attributes +
                 ", category=" + category +
                 ", rentalPrice=" + rentalPrice +
-                ", createdDate=" + createdDate +
-                ", lastModifiedDate=" + lastModifiedDate +
-                ", lastModifier=" + lastModifier +
                 ", images=" + images +
                 '}';
     }

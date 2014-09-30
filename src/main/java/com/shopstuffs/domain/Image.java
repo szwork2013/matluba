@@ -1,13 +1,14 @@
 package com.shopstuffs.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by jasurbek.umarov on 9/21/2014.
  */
 @Entity
 @Table(name="image")
-public class Image {
+public class Image implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="image_id")
