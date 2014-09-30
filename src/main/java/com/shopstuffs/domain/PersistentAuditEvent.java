@@ -4,6 +4,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDateTime;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashMap;
