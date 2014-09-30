@@ -133,9 +133,10 @@ shopstuffsApp
         $rootScope.isAuthorized = AuthenticationSharedService.isAuthorized;
         $rootScope.$on('$routeChangeStart', function (event, next) {
             $rootScope.ui.loading = false;
-            if (!AuthenticationSharedService.isAuthorized(next.access.authorizedRoles)) {
+            $rootScope.userRoles = USER_ROLES;
+            var authorized = AuthenticationSharedService.isAuthorized(next.access.authorizedRoles);
+            if (!$rootScope.authenticated || !authorized) {
                 $rootScope.ui.loading = true;
-                $rootScope.userRoles = USER_ROLES;
                 AuthenticationSharedService.valid(next.access.authorizedRoles);
             }
         });
