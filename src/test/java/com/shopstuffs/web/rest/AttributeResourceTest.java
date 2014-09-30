@@ -73,8 +73,8 @@ public class AttributeResourceTest {
 
         attribute = new Attribute();
         attribute.setId(DEFAULT_ID);
-        attribute.setSampleDateAttribute(DEFAULT_SAMPLE_DATE_ATTR);
-        attribute.setSampleTextAttribute(DEFAULT_SAMPLE_TEXT_ATTR);
+//        attribute.setSampleDateAttribute(DEFAULT_SAMPLE_DATE_ATTR);
+//        attribute.setSampleTextAttribute(DEFAULT_SAMPLE_TEXT_ATTR);
     }
 
     @Test
@@ -95,8 +95,8 @@ public class AttributeResourceTest {
                 .andExpect(jsonPath("$.sampleTextAttribute").value(DEFAULT_SAMPLE_TEXT_ATTR));
 
         // Update Attribute
-        attribute.setSampleDateAttribute(UPD_SAMPLE_DATE_ATTR);
-        attribute.setSampleTextAttribute(UPD_SAMPLE_TEXT_ATTR);
+//        attribute.setSampleDateAttribute(UPD_SAMPLE_DATE_ATTR);
+//        attribute.setSampleTextAttribute(UPD_SAMPLE_TEXT_ATTR);
 
         restAttributeMockMvc.perform(post("/app/rest/attributes")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)

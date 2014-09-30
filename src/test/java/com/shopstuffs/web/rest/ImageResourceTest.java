@@ -72,9 +72,9 @@ public class ImageResourceTest {
         this.restImageMockMvc = MockMvcBuilders.standaloneSetup(imageResource).build();
 
         image = new Image();
-        image.setId(DEFAULT_ID);
-        image.setSampleDateAttribute(DEFAULT_SAMPLE_DATE_ATTR);
-        image.setSampleTextAttribute(DEFAULT_SAMPLE_TEXT_ATTR);
+//        image.setId(DEFAULT_ID);
+//        image.setSampleDateAttribute(DEFAULT_SAMPLE_DATE_ATTR);
+//        image.setSampleTextAttribute(DEFAULT_SAMPLE_TEXT_ATTR);
     }
 
     @Test
@@ -95,8 +95,8 @@ public class ImageResourceTest {
                 .andExpect(jsonPath("$.sampleTextAttribute").value(DEFAULT_SAMPLE_TEXT_ATTR));
 
         // Update Image
-        image.setSampleDateAttribute(UPD_SAMPLE_DATE_ATTR);
-        image.setSampleTextAttribute(UPD_SAMPLE_TEXT_ATTR);
+//        image.setSampleDateAttribute(UPD_SAMPLE_DATE_ATTR);
+//        image.setSampleTextAttribute(UPD_SAMPLE_TEXT_ATTR);
 
         restImageMockMvc.perform(post("/app/rest/images")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)

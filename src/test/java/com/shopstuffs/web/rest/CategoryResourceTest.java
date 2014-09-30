@@ -73,8 +73,8 @@ public class CategoryResourceTest {
 
         category = new Category();
         category.setId(DEFAULT_ID);
-        category.setSampleDateAttribute(DEFAULT_SAMPLE_DATE_ATTR);
-        category.setSampleTextAttribute(DEFAULT_SAMPLE_TEXT_ATTR);
+//        category.setSampleDateAttribute(DEFAULT_SAMPLE_DATE_ATTR);
+//        category.setSampleTextAttribute(DEFAULT_SAMPLE_TEXT_ATTR);
     }
 
     @Test
@@ -95,8 +95,8 @@ public class CategoryResourceTest {
                 .andExpect(jsonPath("$.sampleTextAttribute").value(DEFAULT_SAMPLE_TEXT_ATTR));
 
         // Update Category
-        category.setSampleDateAttribute(UPD_SAMPLE_DATE_ATTR);
-        category.setSampleTextAttribute(UPD_SAMPLE_TEXT_ATTR);
+//        category.setSampleDateAttribute(UPD_SAMPLE_DATE_ATTR);
+//        category.setSampleTextAttribute(UPD_SAMPLE_TEXT_ATTR);
 
         restCategoryMockMvc.perform(post("/app/rest/categorys")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
