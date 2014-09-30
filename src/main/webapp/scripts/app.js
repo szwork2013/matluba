@@ -132,13 +132,10 @@ shopstuffsApp
         $rootScope.ui.loading = false;
         $rootScope.isAuthorized = AuthenticationSharedService.isAuthorized;
         $rootScope.$on('$routeChangeStart', function (event, next) {
-            $rootScope.ui.loading = false;
+//            $rootScope.ui.loading = false;
             $rootScope.userRoles = USER_ROLES;
             var authorized = AuthenticationSharedService.isAuthorized(next.access.authorizedRoles);
-            if (!$rootScope.authenticated || !authorized) {
-                $rootScope.ui.loading = true;
-                AuthenticationSharedService.valid(next.access.authorizedRoles);
-            }
+            AuthenticationSharedService.valid(next.access.authorizedRoles);
         });
 
         // Call when the the client is confirmed

@@ -6,7 +6,7 @@ spring:
     
     datasource:
         dataSourceClassName: com.mysql.jdbc.jdbc2.optional.MysqlDataSource
-        url: jdbc:mysql://127.0.0.1:3307/shopstuffs
+        url: jdbc:mysql://127.0.0.1:3307/matluba
         databaseName: shopstuffs
         serverName: MySQL56
         username: root
