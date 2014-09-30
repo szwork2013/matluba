@@ -1,18 +1,24 @@
 package com.shopstuffs.domain;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * Created by jasurbek.umarov on 9/21/2014.
+ * A Image.
  */
 @Entity
-@Table(name="image")
+@Table(name = "T_IMAGE")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Image implements Serializable {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name="image_id")
-    private long imageId;
+    private Long id;
 
     @Column(name="full_image")
     private String fullImagePath;
@@ -26,48 +32,34 @@ public class Image implements Serializable {
     @ManyToOne
     private Product productId;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
-    public Boolean isMain() {
-        return isMain;
+        Image image = (Image) o;
+
+        return id.equals(image.id);
+
     }
 
-    public void setIsMain(Boolean isMain) {
-        this.isMain = isMain;
+    @Override
+    public int hashCode() {
+        return (int) (id ^ (id >>> 32));
     }
 
-    public long getImageId() {
-        return imageId;
-    }
-
-    public void setImageId(long imageId) {
-        this.imageId = imageId;
-    }
-
-    public String getFullImagePath() {
-        return fullImagePath;
-    }
-
-    public void setFullImagePath(String fullImagePath) {
-        this.fullImagePath = fullImagePath;
-    }
-
-    public String getThumbnailImagePath() {
-        return thumbnailImagePath;
-    }
-
-    public void setThumbnailImagePath(String thumbnailImagePath) {
-        this.thumbnailImagePath = thumbnailImagePath;
-    }
-
-    public Boolean getIsMain() {
-        return isMain;
-    }
-
-    public Product getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Product productId) {
-        this.productId = productId;
+    @Override
+    public String toString() {
+        return "Image{" +
+                "id=" + id +
+                ", fullImagePath='" + fullImagePath + '\'' +
+                ", thumbnailImagePath='" + thumbnailImagePath + '\'' +
+                ", isMain=" + isMain +
+                ", productId=" + productId +
+                '}';
     }
 }
