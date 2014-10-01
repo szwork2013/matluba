@@ -38,6 +38,19 @@ public class ProductResource {
         productRepository.save(product);
     }
 
+
+    /**
+     * POST  /rest/products -> Create a new product.
+     */
+    @RequestMapping(value = "/rest/sample-product",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<Product> getEmpty() {
+        return new ResponseEntity<Product>(HttpStatus.OK);
+    }
+
+
     /**
      * GET  /rest/products -> get all the products.
      */

@@ -5,4 +5,4 @@ shopstuffsApp.factory('Product', function ($resource) {
             'query': { method: 'GET', isArray: true},
             'get': { method: 'GET'}
         });
-    });
+ });

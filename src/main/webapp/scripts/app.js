@@ -55,7 +55,7 @@ shopstuffsApp
                 controller: 'SessionsController',
                 resolve: {
                     resolvedSessions: ['Sessions', function (Sessions) {
-                        return Sessions.get();
+                            return Sessions.get();
                     }]
                 },
                 access: {
@@ -101,6 +101,19 @@ shopstuffsApp
                     authorizedRoles: [USER_ROLES.admin]
                 }
             })
+            .when('/edit/:productId', {
+                templateUrl: 'views/edit.html',
+                controller: 'AddController',
+                resolve: {
+                    resolvedProduct: ['$routeParams', 'Product', function ($routeParams, Product) {
+                        return Product.get($routeParams.productId);
+                    }]
+                },
+                access: {
+                    authorizedRoles: [USER_ROLES.admin]
+                }
+            })
+
             .otherwise({
                 templateUrl: 'views/main.html',
                 controller: 'MainController',
@@ -167,3 +180,7 @@ shopstuffsApp
             $location.path('');
         });
     });
+
+<div classn="gproduct">
+    <a ng-href="#edit/{{productid}}"></div>
+ <div>

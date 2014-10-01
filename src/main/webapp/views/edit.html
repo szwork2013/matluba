@@ -1,7 +1,8 @@
-<div ng-controller="productEditorController">
+<div ng-controller="ProductEditorController">
 
     <div class="col-md-3">
-        <div ng-controller="imageEditController as imager"></div>
+        <div ng-controller="ImageEditController as img"></div>
+
     </div>
 
     <div class="col-md-9">
@@ -50,7 +51,7 @@
 
         <h3 class="page-header text-warning">Attributes</h3>
 
-        <div class="row" ng-controller="attributesEditController as attributer">
+        <div class="row" ng-controller="AttributesEditController as attributer">
             <a href="#">Add new attribute</a>
         </div>
 
