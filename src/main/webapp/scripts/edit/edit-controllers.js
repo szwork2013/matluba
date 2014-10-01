@@ -3,13 +3,14 @@
  */
 // JavaScript source code
 
-shopstuffsApp.controller('productEditController', [function($scope, resolvedProduct, Product, Categories) {
+shopstuffsApp.controller('productEditController',
+    ['$scope', 'resolvedProduct', 'Product', 'Category', function($scope, resolvedProduct, Product, Category) {
 
     $scope.product = resolvedProduct || Product.create();
 
     $scope.types  = Product.getProductTypes();
 
-    $scope.categories = Catergories.query();
+    $scope.categories = Category.query();
 
     $scope.save = function () {
 
