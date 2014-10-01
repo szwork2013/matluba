@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 /**
  * REST controller for managing Attribute.
@@ -61,8 +62,8 @@ public class AttributeResource {
         log.debug("REST request to get Attribute : {}", id);
         return Optional.ofNullable(attributeRepository.findOne(id))
             .map(attribute -> new ResponseEntity<>(
-                attribute,
-                HttpStatus.OK))
+                    attribute,
+                    HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 

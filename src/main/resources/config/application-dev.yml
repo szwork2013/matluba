@@ -6,11 +6,11 @@ spring:
     
     datasource:
         dataSourceClassName: com.mysql.jdbc.jdbc2.optional.MysqlDataSource
-        url: jdbc:mysql://127.0.0.1:3307/matluba
-        databaseName: shopstuffs
+        url: jdbc:mysql://127.0.0.1:3306/matluba
+        databaseName: matluba
         serverName: MySQL56
         username: root
-        password: secret
+        password: web@1234
         cachePrepStmts: true
         prepStmtCacheSize: 250
         prepStmtCacheSqlLimit: 2048
