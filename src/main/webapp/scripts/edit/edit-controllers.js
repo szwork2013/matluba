@@ -13,7 +13,6 @@ shopstuffsApp.controller('productEditController',
     $scope.categories = Category.query();
 
     $scope.save = function () {
-
     };
 
     $scope.cancel = function () {
