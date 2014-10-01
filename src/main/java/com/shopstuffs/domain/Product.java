@@ -6,7 +6,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * A Product.
@@ -32,24 +34,14 @@ public class Product extends AbstractAuditingEntity implements Serializable {
     @Column(name = "retail_price")
     private BigDecimal price;
 
-    @OneToMany(mappedBy = "productId", fetch = FetchType.LAZY)
-    private Collection<Attribute> attributes;
-
-    @ManyToOne
-    private Category category;
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Attribute> attributes = new ArrayList<>();
 
     @Column(name = "rental_price")
     private BigDecimal rentalPrice;
 
-    @OneToMany(mappedBy = "productId")
-    private Collection<Image> images;
-
-//    @NotNull
-//    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
-//    @JsonDeserialize(using = LocalDateDeserializer.class)
-//    @JsonSerialize(using = CustomLocalDateSerializer.class)
-//    @Column(name = "sample_date_attribute", nullable = false)
-//    private LocalDate sampleDateAttribute;
+    @OneToMany
+    private List<Image> images = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -76,6 +68,7 @@ public class Product extends AbstractAuditingEntity implements Serializable {
 
         return true;
     }
+
     public String getTitle() {
         return title;
     }
@@ -120,16 +113,8 @@ public class Product extends AbstractAuditingEntity implements Serializable {
         return attributes;
     }
 
-    public void setAttributes(Collection<Attribute> attributes) {
+    public void setAttributes(List<Attribute> attributes) {
         this.attributes = attributes;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
     }
 
     public BigDecimal getRentalPrice() {
@@ -144,7 +129,7 @@ public class Product extends AbstractAuditingEntity implements Serializable {
         return images;
     }
 
-    public void setImages(Collection<Image> images) {
+    public void setImages(List<Image> images) {
         this.images = images;
     }
 
@@ -163,7 +148,6 @@ public class Product extends AbstractAuditingEntity implements Serializable {
                 ", oldPrice=" + oldPrice +
                 ", price=" + price +
                 ", attributes=" + attributes +
-                ", category=" + category +
                 ", rentalPrice=" + rentalPrice +
                 ", images=" + images +
                 '}';

@@ -3,7 +3,6 @@ package com.shopstuffs.config;
 import com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import liquibase.integration.spring.SpringLiquibase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
@@ -79,15 +78,15 @@ public class DatabaseConfiguration implements EnvironmentAware {
         return basePackages;
     }
 
-    @Bean
-    public SpringLiquibase liquibase(DataSource dataSource) {
-        log.debug("Configuring Liquibase");
-        SpringLiquibase liquibase = new SpringLiquibase();
-        liquibase.setDataSource(dataSource);
-        liquibase.setChangeLog("classpath:config/liquibase/master.xml");
-        liquibase.setContexts("development, production");
-        return liquibase;
-    }
+//    @Bean
+//    public SpringLiquibase liquibase(DataSource dataSource) {
+//        log.debug("Configuring Liquibase");
+//        SpringLiquibase liquibase = new SpringLiquibase();
+//        liquibase.setDataSource(dataSource);
+//        liquibase.setChangeLog("classpath:config/liquibase/master.xml");
+//        liquibase.setContexts("development, production");
+//        return liquibase;
+//    }
 
     @Bean
     public Hibernate4Module hibernate4Module() {

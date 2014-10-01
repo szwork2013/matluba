@@ -23,9 +23,6 @@ public class Attribute implements Serializable {
     @Column(name = "attribute_value")
     private String attributeValue;
 
-    @ManyToOne
-    private Product productId;
-
     public Long getId() {
         return id;
     }
@@ -48,14 +45,6 @@ public class Attribute implements Serializable {
 
     public void setAttributeValue(String attributeValue) {
         this.attributeValue = attributeValue;
-    }
-
-    public Product getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Product productId) {
-        this.productId = productId;
     }
 
     @Override
@@ -87,7 +76,6 @@ public class Attribute implements Serializable {
                 "id=" + id +
                 ", attributeName='" + attributeName + '\'' +
                 ", attributeValue='" + attributeValue + '\'' +
-                ", productId=" + productId +
                 '}';
     }
 }

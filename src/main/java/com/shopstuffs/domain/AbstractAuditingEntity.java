@@ -1,7 +1,6 @@
 package com.shopstuffs.domain;
 
 import org.hibernate.annotations.Type;
-import org.hibernate.envers.Audited;
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -19,7 +18,6 @@ import javax.validation.constraints.NotNull;
  * last modified by date.
  */
 @MappedSuperclass
-@Audited
 @EntityListeners(AuditingEntityListener.class)
 public abstract class AbstractAuditingEntity {
 

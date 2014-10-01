@@ -17,13 +17,13 @@ spring:
         useServerPrepStmts: true
 
     jpa:
-        database-platform: org.hibernate.dialect.MySQLInnoDBDialect
+        database-platform: org.hibernate.dialect.MySQL5Dialect
         database: MYSQL
         openInView: false
         show_sql: true
         generate-ddl: false
         hibernate:
-            ddl-auto: none
+            ddl-auto: update
             naming-strategy: org.hibernate.cfg.EJB3NamingStrategy
         properties:
             hibernate.cache.use_second_level_cache: true
@@ -59,9 +59,5 @@ hotReload:
       project: com.shopstuffs
       domain: com.shopstuffs.domain
       restdto: com.shopstuffs.web.rest.dto
-    liquibase:
-      defaultCatalogName: shopstuffs
-      defaultSchema: shopstuffs
-      excludeTables: T_AUTHORITY,T_PERSISTENT_AUDIT_EVENT,T_PERSISTENT_AUDIT_EVENT_DATA,T_PERSISTENT_TOKEN,T_USER,T_USER_AUTHORITY,oauth_access_token,oauth_approvals,oauth_client_details,oauth_client_token,oauth_code,oauth_refresh_token
     watchdir:
       - target/classes

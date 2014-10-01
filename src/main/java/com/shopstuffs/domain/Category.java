@@ -1,9 +1,18 @@
 package com.shopstuffs.domain;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.joda.deser.LocalDateDeserializer;
+import com.shopstuffs.domain.util.CustomLocalDateSerializer;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Type;
+import org.joda.time.LocalDate;
+
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -21,7 +30,7 @@ public class Category implements Serializable {
 
     private String name;
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     private Collection<Product> products;
 
     public Long getId() {
@@ -59,7 +68,7 @@ public class Category implements Serializable {
 
         Category category = (Category) o;
 
-        if (!id.equals(category.id)) {
+        if (!(id == category.id)) {
             return false;
         }
 
