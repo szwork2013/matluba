@@ -1,0 +1,61 @@
+<div ng-controller="productEditorController">
+
+    <div class="col-md-3">
+        <div ng-controller="imageEditController as imager"></div>
+    </div>
+
+    <div class="col-md-9">
+
+        <div class="row">
+            <div class="col-md-6">
+                <input ng-model="product.title" />
+            </div>
+            <div class="col-md-6">
+                <input ng-model="product.price" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <select ng-model="product.category" ng-options="category.name for category in product.categories"></select>
+            </div>
+            <div class="col-md-6">
+                <input ng-model="product.oldPrice" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <select ng-model="product.type" ng-options="type.name for type in product.types"></select>
+            </div>
+            <div class="col-md-6">
+                <input ng-model="product.rentalPrice" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <input ng-model="product.releaseDate" />
+            </div>
+            <div class="col-md-3">
+                <input ng-model="product.expireDate" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <textarea class="form-control" ng-model="product.description"></textarea>
+            </div>
+        </div>
+
+        <h3 class="page-header text-warning">Attributes</h3>
+
+        <div class="row" ng-controller="attributesEditController as attributer">
+            <a href="#">Add new attribute</a>
+        </div>
+
+        <hr />
+        <button class="btn btn-success" ng-click="">Create</button>
+        <button class="btn btn-default">Cancel</button>
+    </div>
+</div>
