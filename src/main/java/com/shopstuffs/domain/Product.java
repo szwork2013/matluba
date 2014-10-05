@@ -26,7 +26,7 @@ public class Product extends AbstractAuditingEntity implements Serializable {
     private String description;
 
     @Column(name = "product_type")
-    private String productType;
+    private ProductType productType;
 
     @Column(name = "old_price")
     private BigDecimal oldPrice;
@@ -85,11 +85,11 @@ public class Product extends AbstractAuditingEntity implements Serializable {
         this.description = description;
     }
 
-    public String getProductType() {
+    public ProductType getProductType() {
         return productType;
     }
 
-    public void setProductType(String productType) {
+    public void setProductType(ProductType productType) {
         this.productType = productType;
     }
 

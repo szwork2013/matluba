@@ -1,7 +1,9 @@
 package com.shopstuffs.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.google.common.collect.Lists;
 import com.shopstuffs.domain.Product;
+import com.shopstuffs.domain.ProductType;
 import com.shopstuffs.repository.ProductRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,19 +41,6 @@ public class ProductResource {
         log.debug("REST request to save Product : {}", product);
         productRepository.save(product);
     }
-
-
-    /**
-     * POST  /rest/products -> Create a new product.
-     */
-    @RequestMapping(value = "/rest/sample-product",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    public ResponseEntity<Product> getEmpty() {
-        return new ResponseEntity<Product>(HttpStatus.OK);
-    }
-
 
     /**
      * GET  /rest/products -> get all the products.
@@ -89,5 +80,16 @@ public class ProductResource {
     public void delete(@PathVariable Long id) {
         log.debug("REST request to delete Product : {}", id);
         productRepository.delete(id);
+    }
+
+    /**
+     * GET  /rest/products/types -> get all product types.
+     */
+    @RequestMapping(value = "/rest/products/types",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<ProductType> getProductTypes() {
+        log.debug("REST request to get product types");
+        return Arrays.asList(ProductType.values());
     }
 }
