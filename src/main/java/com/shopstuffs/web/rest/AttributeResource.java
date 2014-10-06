@@ -34,9 +34,10 @@ public class AttributeResource {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public void create(@RequestBody Attribute attribute) {
+    public ResponseEntity<Attribute> create(@RequestBody Attribute attribute) {
         log.debug("REST request to save Attribute : {}", attribute);
-        attributeRepository.save(attribute);
+        Attribute saved = attributeRepository.save(attribute);
+        return new ResponseEntity<>(saved, HttpStatus.OK);
     }
 
     /**

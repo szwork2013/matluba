@@ -18,10 +18,14 @@ public class Attribute implements Serializable {
     @Column(name = "attribute_id")
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
+
     @Column(name = "attribute_name")
     private String attributeName;
     @Column(name = "attribute_value")
     private String attributeValue;
+
+    @Column(name = "attribute_type")
+    private String attributeType;
 
     public Long getId() {
         return id;
@@ -45,6 +49,14 @@ public class Attribute implements Serializable {
 
     public void setAttributeValue(String attributeValue) {
         this.attributeValue = attributeValue;
+    }
+
+    public String getAttributeType() {
+        return attributeType;
+    }
+
+    public void setAttributeType(String attributeType) {
+        this.attributeType = attributeType;
     }
 
     @Override

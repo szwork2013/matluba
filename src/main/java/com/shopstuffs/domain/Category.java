@@ -15,6 +15,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A Category.
@@ -29,6 +31,9 @@ public class Category implements Serializable {
     private Long id;
 
     private String name;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Category> childrenCategories = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY)
     private Collection<Product> products;
@@ -57,6 +62,14 @@ public class Category implements Serializable {
         this.products = products;
     }
 
+    public Set<Category> getChildrenCategories() {
+        return childrenCategories;
+    }
+
+    public void setChildrenCategories(Set<Category> childrenCategories) {
+        this.childrenCategories = childrenCategories;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -68,12 +81,13 @@ public class Category implements Serializable {
 
         Category category = (Category) o;
 
-        if (!(id == category.id)) {
+        if (!(id.equals(category.id))) {
             return false;
         }
 
         return true;
     }
+
 
     @Override
     public int hashCode() {
