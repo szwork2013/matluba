@@ -20,12 +20,12 @@ public class Attribute implements Serializable {
     private Long id;
 
     @Column(name = "attribute_name")
-    private String attributeName;
+    private String name;
     @Column(name = "attribute_value")
-    private String attributeValue;
+    private String value;
 
     @Column(name = "attribute_type")
-    private String attributeType;
+    private String type;
 
     public Long getId() {
         return id;
@@ -35,28 +35,28 @@ public class Attribute implements Serializable {
         this.id = id;
     }
 
-    public String getAttributeName() {
-        return attributeName;
+    public String getName() {
+        return name;
     }
 
-    public void setAttributeName(String attributeName) {
-        this.attributeName = attributeName;
+    public void setName(String attributeName) {
+        this.name = attributeName;
     }
 
-    public String getAttributeValue() {
-        return attributeValue;
+    public String getValue() {
+        return value;
     }
 
-    public void setAttributeValue(String attributeValue) {
-        this.attributeValue = attributeValue;
+    public void setValue(String attributeValue) {
+        this.value = attributeValue;
     }
 
-    public String getAttributeType() {
-        return attributeType;
+    public String getType() {
+        return type;
     }
 
-    public void setAttributeType(String attributeType) {
-        this.attributeType = attributeType;
+    public void setType(String attributeType) {
+        this.type = attributeType;
     }
 
     @Override
@@ -86,8 +86,8 @@ public class Attribute implements Serializable {
     public String toString() {
         return "Attribute{" +
                 "id=" + id +
-                ", attributeName='" + attributeName + '\'' +
-                ", attributeValue='" + attributeValue + '\'' +
+                ", attributeName='" + name + '\'' +
+                ", attributeValue='" + value + '\'' +
                 '}';
     }
 }

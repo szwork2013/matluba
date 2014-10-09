@@ -2,6 +2,8 @@ package com.shopstuffs.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -42,6 +44,14 @@ public class Product extends AbstractAuditingEntity implements Serializable {
 
     @OneToMany
     private List<Image> images = new ArrayList<>();
+
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @Column(name = "release_date")
+    private DateTime releaseDate = DateTime.now();
+
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @Column(name = "expire_date")
+    private DateTime expireDate = DateTime.now();
 
     public Long getId() {
         return id;
@@ -136,6 +146,22 @@ public class Product extends AbstractAuditingEntity implements Serializable {
     @Override
     public int hashCode() {
         return (int) (id ^ (id >>> 32));
+    }
+
+    public DateTime getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(DateTime releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public DateTime getExpireDate() {
+        return expireDate;
+    }
+
+    public void setExpireDate(DateTime expireDate) {
+        this.expireDate = expireDate;
     }
 
     @Override
