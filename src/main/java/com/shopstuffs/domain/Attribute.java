@@ -5,6 +5,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A Attribute.
@@ -19,10 +21,18 @@ public class Attribute implements Serializable {
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
-    @Column(name = "attribute_name")
-    private String name;
     @Column(name = "attribute_value")
     private String value;
+
+    @Column(name = "attribute_name")
+    private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "fk_parent_attribute")
+    public Attribute parentAttribute;
+
+    @OneToMany(mappedBy = "parentAttribute")
+    public List<Attribute> children = new ArrayList<Attribute>();
 
     @Column(name = "attribute_type")
     private String type;
@@ -57,6 +67,22 @@ public class Attribute implements Serializable {
 
     public void setType(String attributeType) {
         this.type = attributeType;
+    }
+
+    public Attribute getParentAttribute() {
+        return parentAttribute;
+    }
+
+    public void setParentAttribute(Attribute parentAttribute) {
+        this.parentAttribute = parentAttribute;
+    }
+
+    public List<Attribute> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Attribute> subFolders) {
+        this.children = subFolders;
     }
 
     @Override
