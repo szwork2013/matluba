@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -53,6 +54,31 @@ public class AttributeResource {
     }
 
     /**
+     * GET  /rest/attributes -> get all the labels.
+     */
+    @RequestMapping(value = "/rest/attribute/labels",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public List<Attribute> getLabels() {
+        log.debug("REST request to get all Attributes");
+        return attributeRepository.findAllLabels();
+    }
+
+
+    /**
+     * GET  /rest/options/id -> get all options.
+     */
+    @RequestMapping(value = "/rest/attribute/options/{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public List<Attribute> getOptions(@PathVariable Long id) {
+        log.debug("REST request to get all Attributes");
+        return attributeRepository.findLabelOptions(id);
+    }
+
+    /**
      * GET  /rest/attributes/:id -> get the "id" attribute.
      */
     @RequestMapping(value = "/rest/attributes/{id}",
@@ -62,10 +88,10 @@ public class AttributeResource {
     public ResponseEntity<Attribute> get(@PathVariable Long id) {
         log.debug("REST request to get Attribute : {}", id);
         return Optional.ofNullable(attributeRepository.findOne(id))
-            .map(attribute -> new ResponseEntity<>(
-                    attribute,
-                    HttpStatus.OK))
-            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .map(attribute -> new ResponseEntity<>(
+                        attribute,
+                        HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     /**
