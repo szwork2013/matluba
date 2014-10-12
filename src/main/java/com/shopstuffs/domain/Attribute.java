@@ -29,9 +29,9 @@ public class Attribute implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "fk_parent_attribute")
-    public Attribute parentAttribute;
+    public Attribute parent;
 
-    @OneToMany(mappedBy = "parentAttribute")
+    @OneToMany(mappedBy = "parent")
     public List<Attribute> children = new ArrayList<Attribute>();
 
     @Column(name = "attribute_type")
@@ -69,12 +69,12 @@ public class Attribute implements Serializable {
         this.type = attributeType;
     }
 
-    public Attribute getParentAttribute() {
-        return parentAttribute;
+    public Attribute getParent() {
+        return parent;
     }
 
-    public void setParentAttribute(Attribute parentAttribute) {
-        this.parentAttribute = parentAttribute;
+    public void setParent(Attribute parentAttribute) {
+        this.parent = parentAttribute;
     }
 
     public List<Attribute> getChildren() {

@@ -1,135 +1,58 @@
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="javascript:void(0)" ng-click="collapseProduct=!collapseProduct">
+            Product Details
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" ng-class="{in:collapseProduct}">
+      <div class="panel-body">
+         <div ng-include src="'views/partials/product.partial.html'"></div>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" ng-click="collapseAttribute=!collapseAttribute" href="javascript:void(0)" >
+           Add Attributes
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse"  ng-class="{in:collapseAttribute}">
+      <div class="panel-body">
+          <div ng-include src="'views/partials/attribute.partial.html'"></div>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" ng-click="collapseImage=!collapseImage" href="javascript:void(0)">
+           Add Image
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse" ng-class="{in:collapseImage}">
+      <div class="panel-body">
+          <div ng-include src="'views/partials/image.partial.html'"></div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="row">
     <div class="col-md-3"><h3 style="margin-bottom:0"><a href="#">Back</a></h3></div>
     <div class="col-md-9"><h3 style="margin-bottom:0">New Product</h3></div>
 </div>
 <hr>
+
+
 <div class="row">
     <h2>{{test}}</h2>
 
-    <div class="col-md-3">
-        <div ng-controller="AddImageController as img"></div>
-    </div>
 
-    <div class="col-md-9">
-
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Product Title</label>
-                    <input ng-model="product.title" class="form-control"/>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Retail Price</label>
-                    <!--suppress HtmlFormInputWithoutLabel -->
-                    <input ng-model="product.price" class="form-control"/>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Categories</label>
-                    <select ng-model="product.category" ng-options="category.name for category in categories"
-                            class="form-control"></select>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Old Price</label>
-                    <small>(optional)</small>
-                    <input ng-model="product.oldPrice" class="form-control"/>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Product Types</label>
-                    <select ng-model="product.type" ng-options="type for type in types" class="form-control"></select>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Rental Price</label>
-                    <input ng-model="product.rentalPrice" class="form-control"/>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label>Release Date</label>
-                    <input ng-model="product.releaseDate" class="form-control"/>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label>Expire Date</label>
-                    <input ng-model="product.expireDate" class="form-control"/>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label>Product Description</label>
-                    <textarea class="form-control" ng-model="product.description"></textarea>
-                </div>
-            </div>
-        </div>
-
-        <h3 class="page-header text-warning">Attributes</h3>
-
-        <div ng-controller="AddAttributeController as attributer">
-
-
-            <ul class="list-group col-md-6" ng-repeat="attribute in product.attributes">
-
-                <li class="list-group-item">
-                    <span class="badge hand" ng-click="editAttr(attribute)">edit</span>
-                    {{attribute.attributeName}} : {{attribute.attributeValue}}
-                  </li>
-
-            </ul>
-
-            <a href="javascript:void(0)" ng-click="addNew()"> Add New</a>
-            <form ng-show="attr_form.showAddView" name="attr_form" ng-submit="saveAttr()">
-                <div class="row">
-
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label>Label</label>
-                            <input required type="text" ng-model="p_attr.attributeName" class="form-control"/>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label>Text</label>
-                            <input type="text" required ng-model="p_attr.attributeValue" class="form-control"/>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label>Type</label>
-                            <select ng-model="p_attr.attributeType" ng-options="type for type in attr_types"
-                                    class="form-control"></select>
-                        </div>
-                    </div>
-                </div>
-                <button class="btn" ng-disabled="attr_form.$invalid">Add Attribute</button>
-            </form>
-
-
-            <hr/>
-            <button class="btn btn-success" ng-click="">Create</button>
-            <button class="btn btn-default">Cancel</button>
-        </div>
-    </div>
- </div>
+</div>

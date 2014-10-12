@@ -4,12 +4,11 @@ shopstuffsApp.controller('ProductController', function ($scope, resolvedProduct,
 
         $scope.products = resolvedProduct;
 
-        $scope.create = function () {
+        $scope.saveProduct = function () {
             Product.save($scope.product,
-                function () {
-                    $scope.products = Product.query();
-                    $('#saveProductModal').modal('hide');
-                    $scope.clear();
+                function (savedProduct) {
+                    $scope.product = savedProduct;
+
                 });
         };
 

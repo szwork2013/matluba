@@ -62,7 +62,7 @@ public class AttributeResource {
     @Timed
     public List<Attribute> getLabels() {
         log.debug("REST request to get all Attributes");
-        return attributeRepository.findAllLabels();
+        return attributeRepository.findByParentIsNull();
     }
 
 
@@ -75,7 +75,7 @@ public class AttributeResource {
     @Timed
     public List<Attribute> getOptions(@PathVariable Long id) {
         log.debug("REST request to get all Attributes");
-        return attributeRepository.findLabelOptions(id);
+        return attributeRepository.findByParent(id);
     }
 
     /**

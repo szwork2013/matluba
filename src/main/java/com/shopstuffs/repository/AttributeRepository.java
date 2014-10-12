@@ -12,11 +12,10 @@ import java.util.List;
  */
 public interface AttributeRepository extends JpaRepository<Attribute, Long> {
 
-    @Query("select a.id, a.value from Attribute a where a.parentAttribute is null")
-    List<Attribute> findAllLabels();
+    List<Attribute> findByParentIsNull();
 
-    @Query("select a.id, a.value, a.name from Attribute a where a.parentAttribute.id=:parentId")
-    List<Attribute> findLabelOptions(@Param("parentId") Long parentId);
+    @Query("FROM Attribute a WHERE a.parent.id=:parentId")
+    List<Attribute> findByParent(@Param("parentId") Long parentId);
 
 
 }
