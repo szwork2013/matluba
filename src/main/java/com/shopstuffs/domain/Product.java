@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import javax.validation.constraints.*;
 
 /**
  * A Product.
@@ -24,9 +25,14 @@ public class Product extends AbstractAuditingEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
+    @NotNull
+    @Size(min = 2)
     private String title;
+
     private String description;
 
+    @Enumerated(EnumType.STRING)
+    @NotNull
     @Column(name = "product_type")
     private ProductType productType;
 
@@ -34,6 +40,7 @@ public class Product extends AbstractAuditingEntity implements Serializable {
     private BigDecimal oldPrice;
 
     @Column(name = "retail_price")
+    @DecimalMin(value = "1.00")
     private BigDecimal price;
 
     @OneToMany(fetch = FetchType.LAZY)

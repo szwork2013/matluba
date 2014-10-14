@@ -103,3 +103,11 @@ ul#strength {
   display: none !important;
 }
 /* end Password strength bar style */
+
+
+.goose .popover {
+    position: relative;
+}
+.goose-input-group {
+    position: relative;
+}

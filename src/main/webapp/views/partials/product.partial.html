@@ -1,82 +1,84 @@
-<div class="col-md-9">
-    <form name="product_form" ng-submit="saveProduct()">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Product Title</label>
-                    <input ng-model="product.title" class="form-control"/>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Product</h3>
+    </div>
+    <div class="panel-body">
+        <form name="product_form" ng-submit="saveProduct()">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Product Title</label>
+                        <input ng-model="product.title" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Retail Price</label>
+                        <input ng-model="product.price" class="form-control" />
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Retail Price</label>
-                    <!--suppress HtmlFormInputWithoutLabel -->
-                    <input ng-model="product.price" class="form-control"/>
-                </div>
-            </div>
-        </div>
 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Categories</label>
-                    <select ng-model="product.category" ng-options="category.name for category in categories"
-                            class="form-control"></select>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Categories</label>
+                        <select ng-model="product.category" ng-options="category.name for category in categories"
+                                class="form-control"></select>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Old Price</label>
-                    <small>(optional)</small>
-                    <input ng-model="product.oldPrice" class="form-control"/>
-                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Old Price</label>
+                        <small>(optional)</small>
+                        <input ng-model="product.oldPrice" class="form-control" />
+                    </div>
 
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Product Types</label>
-                    <select ng-model="product.type" ng-options="type for type in types"
-                            class="form-control"></select>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Rental Price</label>
-                    <input ng-model="product.rentalPrice" class="form-control"/>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Product Types</label>
+                        <select ng-model="product.type" ng-options="type for type in types"
+                                class="form-control"></select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Rental Price</label>
+                        <input ng-model="product.rentalPrice" class="form-control" />
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label>Release Date</label>
-                    <input ng-model="product.releaseDate" class="form-control"/>
+            <!--<div class="row" date-range format="format" max-date="product.expireDate" min-date="product.releaseDate">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Release Date</label>
+                        <range-datepicker/>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Expire Date</label>
+                        <range-datepicker max-date="true"/>
+                    </div>
+                </div>
+            </div>-->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Product Description</label>
+                        <textarea class="form-control" ng-model="product.description"></textarea>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label>Expire Date</label>
-                    <input ng-model="product.expireDate" class="form-control"/>
-                </div>
-            </div>
-        </div>
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label>Product Description</label>
-                    <textarea class="form-control" ng-model="product.description"></textarea>
-                </div>
-            </div>
-        </div>
-    </form>
-    <hr/>
-    <button class="btn btn-success" ng-disabled="product_form.$invalid">Create</button>
-    <button class="btn btn-default">Cancel</button>
-
-
+            <button class="btn btn-success" ng-disabled="product_form.$invalid">Create</button>
+            <button class="btn btn-default">Cancel</button>
+        </form>
+    </div>
 </div>

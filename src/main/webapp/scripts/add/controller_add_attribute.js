@@ -1,38 +1,22 @@
-shopstuffsApp.controller('AddAttributeController', ['$scope', 'Attribute', function ($scope, Attribute) {
-    $scope.attr_form = {};
-    $scope.attr_form.showAddView = false;
+shopstuffsApp.controller('AddAttributeController', ['$scope', 'Attribute', function ($scope, $modal, $log, Attribute) {
+    $scope.attributes = [];
 
-    $scope.attr = {};
-    $scope.attr_types = ['number', 'text', 'date'];
-    $scope.attr.attributeType = $scope.attr_types[1];
-
-    $scope.labels=Attribute.labels();
-
-    $scope.editAttr = function (attr) {
-        $scope.show();
-        $scope.attr = attr;
-    };
-    $scope.addNew = function () {
-        $scope.show();
-        $scope.attr = {};
-    };
-    $scope.toggleAttrView  = function () {
-        $scope.attr_form.showAddView = !$scope.attr_form.showAddView;
-    };
-    $scope.onLabelSelected = function (label) {
-        if (label) {
-            $scope.options=Attribute.options({id:label.id});
-        }
-    };
-    $scope.show  = function () {
-        $scope.attr_form.showAddView = true;
-    };
-    $scope.saveAttr = function () {
-        Attribute.save($scope.attr, function (savedAttr) {
-            $scope.attr.id = savedAttr.id;
-            $scope.product.attributes.push($scope.attr);
-            $scope.attr = {};
-            $scope.toggleAttrView();
+    $scope.openAttributeModal = function () {
+        $log.info('Modal opend');
+        var modalInstance = $modal.open({
+            templateUrl: 'attributeModal.html',
+            controller: 'AttributeModalCtrl',
+            resolve: {
+                attribute: function () {
+                    return {};
+                }
+            }
         });
-    };
+
+        modalInstance.result.then(function (attribute) {
+            $log.info('Changes are applied: ' + new Date());
+        }, function () {
+            $log.info('Changes to Attribute are canceled: ' + new Date());
+        });
+    }
 }]);

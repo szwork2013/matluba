@@ -9,9 +9,11 @@ shopstuffsApp
 
     $scope.product = !angular.equals(resolvedProduct, {}) ? resolvedProduct : new Product({ images:[], attributes:[]});
 
-    $scope.types  = ProductTypes.query();
+    $scope.types = ProductTypes.query();
 
     $scope.categories = Category.query();
+
+    $scope.format = 'dd/mm/yyyy';
 
     $scope.save = function () {
         $scope.product.$save();

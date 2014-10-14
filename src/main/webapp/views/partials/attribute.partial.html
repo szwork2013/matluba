@@ -1,49 +1,8 @@
-<div ng-controller="AddAttributeController as attributer">
-    <h3 class="page-header text-warning">Attributes</h3>
+<div ng-controller="AddAttributeCtrl as attributer" class="panel panel-default">
+    <div class="panel-heading clearfix">
+        <h3 class="panel-title pull-left">Product Attributes</h3><a href="#" class="pull-right" ng-click="openAttributeModal()">New</a>
+    </div>
+    <div class="panel-body">
 
-    <ul class="list-group col-md-6" ng-repeat="attribute in product.attributes">
-
-        <li class="list-group-item">
-            <span class="badge hand" ng-click="editAttr(attribute)">edit</span>
-            {{attribute.attributeName}} : {{attribute.attributeValue}}
-        </li>
-
-    </ul>
-
-    <a href="javascript:void(0)" ng-click="addNew()" ng-show="$"> Add New</a>
-
-    <form ng-show="attr_form.showAddView" name="attr_form" ng-submit="saveAttr()">
-        <div class="row">
-
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label>Label</label>
-                    <select required ng-model="attr.value" ng-options="label.value for label in labels"
-                            class="form-control" ng-change="onLabelSelected(attr.value)">
-                        <option>Please select</option>
-                    </select>
-
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label>Text</label>
-                    <select required ng-model="attr.option" ng-options="option.value for option in options"
-                            class="form-control">
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label>Type</label>
-                    <select ng-model="attr.type" ng-options="type for type in attr_types"
-                            class="form-control">
-                    </select>
-                </div>
-            </div>
-        </div>
-        <button class="btn" ng-disabled="attr_form.$invalid">Add Attribute</button>
-    </form>
-
-
+    </div>
 </div>

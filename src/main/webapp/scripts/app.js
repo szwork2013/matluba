@@ -4,7 +4,7 @@
 var httpHeaders;
 
 var shopstuffsApp = angular.module('shopstuffsApp', ['http-auth-interceptor', 'tmh.dynamicLocale',
-    'ngResource', 'ngRoute', 'ngCookies', 'shopstuffsAppUtils', 'pascalprecht.translate', 'truncate']);
+    'ngResource', 'ngRoute', 'ngCookies', 'shopstuffsAppUtils', 'pascalprecht.translate', 'truncate', 'ui.bootstrap']);
 
 shopstuffsApp
     .config(function ($routeProvider, $httpProvider, $translateProvider, tmhDynamicLocaleProvider, USER_ROLES) {
