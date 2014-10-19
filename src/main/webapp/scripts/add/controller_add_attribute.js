@@ -3,7 +3,7 @@ shopstuffsApp.controller('AddAttributeCtrl',
 
     $scope.attributes = Attribute.query();
 
-    $scope.productAttributes = product.attributes; // get reference to the product attributes
+    $scope.productAttributes = $scope.product.attributes; // get reference to the product attributes
 
     // TODO set selected attributes for the product.
 
