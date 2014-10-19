@@ -39,6 +39,9 @@ public class Product extends AbstractAuditingEntity implements Serializable {
     @Column(name = "old_price")
     private BigDecimal oldPrice;
 
+    @ManyToOne
+    private Category category;
+
     @Column(name = "retail_price")
     @DecimalMin(value = "1.00")
     private BigDecimal price;
@@ -169,6 +172,14 @@ public class Product extends AbstractAuditingEntity implements Serializable {
 
     public void setExpireDate(DateTime expireDate) {
         this.expireDate = expireDate;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     @Override
