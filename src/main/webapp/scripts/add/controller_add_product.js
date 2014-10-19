@@ -4,10 +4,9 @@
 // JavaScript source code
 
 shopstuffsApp
-    .controller('AddProductController', ['$scope', 'resolvedProduct', 'Product', 'Category', 'ProductTypes',
+    .controller('AddProductCtrl', ['$scope', 'resolvedProduct', 'Product', 'Category', 'ProductTypes',
         function($scope, resolvedProduct, Product, Category, ProductTypes) {
-
-    $scope.product = !angular.equals(resolvedProduct, {}) ? resolvedProduct : new Product({ images:[], attributes:[]});
+    $scope.product = !angular.equals(resolvedProduct, {}) ? resolvedProduct : new Product({images: [], attributes: []});
 
     $scope.types = ProductTypes.query();
 

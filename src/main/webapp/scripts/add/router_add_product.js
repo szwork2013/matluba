@@ -8,9 +8,9 @@ shopstuffsApp
         $routeProvider
             .when('/product/edit/:productId?', {
                 templateUrl: 'views/add.html',
-                controller: 'AddProductController',
+                controller: 'AddProductCtrl',
                 resolve:{
-                    resolvedProduct: ['Product', '$routeParams', function (Product, $routeParams) {
+                    resolvedProduct: ['Product', '$routeParams', '$log', function (Product, $routeParams, $log) {
                         return $routeParams.productId ? Product.get({ "id": $routeParams.productId }) : {};
                     }]
                 },
