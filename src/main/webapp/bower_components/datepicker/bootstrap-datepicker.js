@@ -30,6 +30,7 @@
 								click: $.proxy(this.click, this)//,
 								//mousedown: $.proxy(this.mousedown, this)
 							});
+		console.log(this.element[0].outerHTML);
 		this.isInput = this.element.is('input');
 		this.component = this.element.is('.date') ? this.element.find('.add-on') : false;
 		
@@ -158,7 +159,7 @@
 		},
 		
 		update: function(newDate){
-			this.date = DPGlobal.parseDate(
+		    this.date = DPGlobal.parseDate(
 				typeof newDate === 'string' ? newDate : (this.isInput ? this.element.prop('value') : this.element.data('date')),
 				this.format
 			);

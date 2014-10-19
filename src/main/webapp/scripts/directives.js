@@ -167,14 +167,15 @@ angular.module('shopstuffsApp')
                 this.minChanged = function (date) {
                     $scope.minDate = formatDate(date, parseFormat(this.getRawFormat()));
 
+                    var oneDayAfter = new Date(date);
+                    oneDayAfter.setDate(oneDayAfter.getDate() + 1);
+                    $scope.maxScope.setMin(date);
+
                     if (date.valueOf() > $scope.maxScope.getDate().valueOf()) {
-                        var maxDate = new Date(date);
-                        maxDate.setDate(maxDate.getDate() + 1);
-
-                        $scope.maxScope.setMin(date);
-
-                        $scope.maxScope.setDate(maxDate);
-                        $scope.maxDate = formatDate(maxDate, parseFormat(this.getRawFormat()));
+                        $scope.maxScope.setDate(oneDayAfter);
+                        $scope.maxDate = formatDate(oneDayAfter, parseFormat(this.getRawFormat()));
+                    } else {
+                        $scope.maxScope.setDate($scope.maxScope.getDate());
                     }
 
                     $scope.minScope.open(false);
@@ -184,6 +185,7 @@ angular.module('shopstuffsApp')
                 }
 
                 this.maxChanged = function (date) {
+
                     $scope.maxDate = formatDate(date, parseFormat(this.getRawFormat()));
                     $scope.maxScope.open(false);
                 }
@@ -197,12 +199,14 @@ angular.module('shopstuffsApp')
             scope: {
                 maxDate: '@'
             },
-            template: ' <div class="input-group"><input type="text" class="form-control"/><span class="input-group-btn"><button type="button" class="btn btn-default" ng-click="toggleOpen($event)"><i class="glyphicon glyphicon-calendar"></i></button></span></div>',
+            template: ' <div class="input-group"><input type="text" class="form-control" value=""/><span class="input-group-btn"><button type="button" class="btn btn-default" ng-click="toggleOpen($event)"><i class="glyphicon glyphicon-calendar"></i></button></span></div>',
+
             link: function (scope, element, attr, controller) {
                 var $picker, minDate;
 
                 scope.setMin = function (date) {
                     minDate = date;
+                    console.log('min date is set ' + date);
                 }
 
                 scope.setDate = function (date) {
@@ -222,18 +226,16 @@ angular.module('shopstuffsApp')
                     $picker.picker.css("display") === 'block' ? $picker.hide() : $picker.show();
                 }
 
-                $picker = $(element)
+                $picker = $(element[0]).find("input")
                        .datepicker({
                            format: controller.getRawFormat(),
                            onRender: function (date) {
                                return minDate ? (date.valueOf() <= minDate.valueOf() ? 'disabled' : '') : '';
                            }
                        })
-
                         .on("changeDate", function (e) {
                             scope.maxDate ? controller.maxChanged(e.date) : controller.minChanged(e.date);
                         })
-
                         .data("datepicker");
 
                 scope.maxDate == "true" ? controller.addMax(scope)
