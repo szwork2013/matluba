@@ -4,8 +4,8 @@
 // JavaScript source code
 
 shopstuffsApp
-    .controller('AddProductCtrl', ['$scope', 'resolvedProduct', 'Product', 'Category', 'ProductTypes',
-        function($scope, resolvedProduct, Product, Category, ProductTypes) {
+    .controller('AddProductCtrl', ['$scope', '$log', 'resolvedProduct', 'Product', 'Category', 'ProductTypes',
+        function($scope, $log, resolvedProduct, Product, Category, ProductTypes) {
     $scope.product = !angular.equals(resolvedProduct, {}) ? resolvedProduct : new Product({images: [], attributes: [], id: null });
 
     $scope.types = ProductTypes.query();
@@ -16,7 +16,8 @@ shopstuffsApp
 
     $scope.save = function () {
         $scope.product.$save(function(response){
-            console.log(response);
+            $scope.saveStatus = 'Product created successfully';
+            $log.info(response);
         }, function(error){
 
         });

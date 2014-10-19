@@ -37,9 +37,10 @@ public class ProductResource {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public void create(@RequestBody Product product) {
+    public ResponseEntity<Product> create(@RequestBody Product product) {
         log.debug("REST request to save Product : {}", product);
-        productRepository.save(product);
+        final Product createdProduct = productRepository.save(product);
+        return new ResponseEntity<Product>(createdProduct, HttpStatus.CREATED);
     }
 
     /**
