@@ -6,16 +6,20 @@
 shopstuffsApp
     .controller('AddProductCtrl', ['$scope', 'resolvedProduct', 'Product', 'Category', 'ProductTypes',
         function($scope, resolvedProduct, Product, Category, ProductTypes) {
-    $scope.product = !angular.equals(resolvedProduct, {}) ? resolvedProduct : new Product({images: [], attributes: []});
+    $scope.product = !angular.equals(resolvedProduct, {}) ? resolvedProduct : new Product({images: [], attributes: [], id: null });
 
     $scope.types = ProductTypes.query();
 
     $scope.categories = Category.query();
 
-    $scope.format = 'dd/mm/yyyy';
+    $scope.format = 'yyyy-mm-dd';
 
     $scope.save = function () {
-        $scope.product.$save();
+        $scope.product.$save(function(response){
+            console.log(response);
+        }, function(error){
+
+        });
     };
 
     $scope.cancel = function () {

@@ -139,7 +139,6 @@ angular.module('shopstuffsApp')
                     return { separator: separator, parts: parts };
                 };
 
-
                 this.getRawFormat = function () {
                     return $scope.format;
                 }

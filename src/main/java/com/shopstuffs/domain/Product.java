@@ -29,8 +29,6 @@ public class Product extends AbstractAuditingEntity implements Serializable {
     @Size(min = 2)
     private String title;
 
-    private String description;
-
     @Enumerated(EnumType.STRING)
     @NotNull
     @Column(name = "product_type")
@@ -62,6 +60,26 @@ public class Product extends AbstractAuditingEntity implements Serializable {
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @Column(name = "expire_date")
     private DateTime expireDate = DateTime.now();
+
+
+    private String description;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public Long getId() {
         return id;
