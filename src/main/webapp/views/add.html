@@ -8,13 +8,13 @@
             <div class="panel-body">
                 <form name="product_form" ng-submit="saveProduct()">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             <div class="form-group">
                                 <label>Product Title</label>
                                 <input ng-model="product.title" class="form-control" />
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label>Retail Price</label>
                                 <input ng-model="product.price" class="form-control" />
@@ -23,14 +23,14 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             <div class="form-group">
                                 <label>Categories</label>
                                 <select ng-model="product.category" ng-options="category.name for category in categories"
                                         class="form-control"></select>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label>Old Price</label>
                                 <small>(optional)</small>
@@ -41,14 +41,14 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             <div class="form-group">
                                 <label>Product Types</label>
                                 <select ng-model="product.productType" ng-options="type for type in types"
                                         class="form-control"></select>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label>Rental Price</label>
                                 <input ng-model="product.rentalPrice" class="form-control" />
@@ -57,13 +57,13 @@
                     </div>
 
                     <div class="row" date-range format="format" max-date="product.expireDate" min-date="product.releaseDate">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label>Release Date</label>
                                 <range-datepicker/>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label>Expire Date</label>
                                 <range-datepicker max-date="true"/>
@@ -90,16 +90,32 @@
     </div>
 
     <div class="col-md-5">
-        <div ng-controller="AddAttributeCtrl as attributer">
+        <div ng-controller="AddAttributeCtrl as attributor">
             <div class="panel panel-default">
                 <div class="panel-heading clearfix">
                     <h3 class="panel-title pull-left">Product Attributes</h3>
-                    <a href="#" class="pull-right" ng-click="attributer.openAttributeModal()"><i class="glyphicon glyphicon-plus"></i> New</a>
                 </div>
                 <div class="panel-body">
-                    <div ng-if = "!attributer.attributes.length" class="text-center">
-                        <div class="btn btn-default"><i class="glyphicon glyphicon-plus"></i> Create Attribute</div>
+
+                    <select ng-model="selectedLabel" class="form-control"
+                            ng-options="label.name for label in labels" ng-change="onSelect()">
+                    </select>
+                    <br>
+                    <div ng-if="selectedLabel">
+                        <div class="form-group">
+                            <select ng-model="selectedValue" ng-options="v.value for v in selectedLabel.children"  class="form-control"></select>
+                        </div>
+                        <a href="javascript:void(0)" class="pull-right" ng-click="openAttributeModal()">Add New Option</a>
+                        <button type="button" ng-click="addAttribute()" class="btn btn-sm btn-default">Add</button>
                     </div>
+
+                    <div ng-repeat="group in groupedAttributes">
+                        <h2>{{group.label.name}}</h2>
+                        <div ng-repeat="o in group.options">
+                            <div>{{o.name}}</div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

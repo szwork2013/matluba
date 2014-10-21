@@ -3,50 +3,33 @@
         <h3 class="modal-title">Attribute Dialog</h3>
     </div>
     <div class="modal-body">
-        <div ng-if="mode === modes.Edit">
-            <div class="row">
-                <div class="col-sm-6">
-                    <label>Attribute Name</label>
-                    <input class="form-control" type="text" ng-model="attribute.title" />
-                </div>
-                <div class="col-sm-6">
-                    <label>Select Type</label>
-                    <select ng-model="attribute.type" ng-options="value for value in attributeTypes" class="form-control">
-                        <option value="">Choose type</option>
-                    </select>
-                </div>
-            </div>
-            <br />
-            <button class="btn btn-success" ng-click="applyAttributeEdit()">Save</button>
-        </div>
-        <div ng-if="mode === modes.Read">
+
             <div class="row">
                 <div class="col-sm-6">
                     <label class="text-muted">Attribute Name</label>
-                    <div>{{attribute.title}}</div>
+                    <div>{{label.name}}</div>
                 </div>
                 <div class="col-sm-6">
                     <label class="text-muted">Attribute Type</label>
-                    <div>{{attribute.type}}</div>
+                    <div>{{label.type}}</div>
                 </div>
             </div>
-            <a href="#" ng-click="editAttribute()" class="small" style="margin-top:15px;display:block;">Edit Attribute</a>
 
             <hr />
 
-            <h4>New Attribute Value</h4>
-            <goose-input on-add="addItem(item)" wing-placeholder="Alias of Value" input-placeholder="New Value Name"></goose-input>
+            <h4>New Attribute Option</h4>
+            <goose-input on-add="addOption(item)" wing-placeholder="Alias of Option" input-placeholder="New Option Name"></goose-input>
+            <br>
             <ul class="list-group">
-                <li class="list-group-item clearfix" ng-repeat="value in attributeValues" ng-mouseover="active=value" ng-mouseleave="active=null">
+                <li class="list-group-item clearfix" ng-repeat="option in label.children" ng-mouseover="active=value" ng-mouseleave="active=null">
                     <div class="pull-left">
-                        <h4 class="list-group-item-heading">{{ value.title }}</h4>
-                        <p class="list-group-item-text">{{ value.alias }}</p>
+                        <h4 class="list-group-item-heading">{{ option.value }}</h4>
+                        <p class="list-group-item-text">{{ option.alias }}</p>
                     </div>
                     <a href="#" class="pull-right btn-link" ng-show="active==value" ng-click="remove(value)">Delete</a>
                 </li>
             </ul>
         </div>
-    </div>
     <div class="modal-footer">
         <button class="btn btn-primary" ng-click="ok()">OK</button>
         <button class="btn btn-default" ng-click="cancel()">Cancel</button>
