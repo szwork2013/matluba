@@ -1,0 +1,37 @@
+<div ng-controller="AddAttributeCtrl">
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <h3 class="panel-title pull-left">Product Attributes</h3>
+            <a href="javascript:void(0)" ng-click="toggleAttributeEdit()" class="pull-right">{{enableAddAttribute ? 'Finish' : 'Edit'}}</a>
+        </div>
+        <div class="panel-body">
+            <div ng-show="enableAddAttribute">
+                <label class="control-label">Attribute Name</label>
+                <select ng-model="selectedLabel" class="form-control" ng-options="label.name for label in labels" ng-change="onSelect()">
+                </select>
+                <br>
+                <div ngShow="selectedLabel">
+                    <div class="form-group">
+                        <label class="control-label">Attribute Value</label>
+                        <select ng-model="selectedOption" ng-options="v.value for v in selectedLabel.children"
+                                class="form-control" ng-change="onOptionChange()">
+                            <option value=""> Choose value </option>
+                        </select>
+                    </div>
+                    <a href="javascript:void(0)" class="pull-right" ng-click="openAttributeModal()">Add New Option</a>
+                    <button type="button" ng-click="addAttribute()" class="btn btn-sm btn-default">Add</button>
+                    <button type="button" ng-click="finishEdit()" class="btn btn-sm btn-default">Finish</button>
+                </div>
+            </div>
+            <div ng-repeat="group in groupedAttributes">
+                <h2>{{group.label.name}}</h2>
+                <div ng-repeat="o in group.options">
+                    <div>{{o.value}}</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Modal Attribute template -->
+<div ng-include src="'views/partials/attribute.modal.partial.html'"></div>

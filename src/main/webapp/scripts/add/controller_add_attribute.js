@@ -9,10 +9,12 @@ shopstuffsApp.controller('AddAttributeCtrl',
         $scope.labels = Attribute.labels();
 
         $scope.selectedLabel = null;
+
         $scope.selectedOption  = null;
 
         $scope.groupedAttributes = [];
 
+        $scope.enableAddAttribute = false;
 
         $scope.onSelect = function () {
             if ($scope.selectedLabel && !$scope.selectedLabel.children){
@@ -20,39 +22,46 @@ shopstuffsApp.controller('AddAttributeCtrl',
             }
         };
 
+        $scope.toggleAttributeEdit = function () {
+            $scope.enableAddAttribute = !$scope.enableAddAttribute;
+        };
+
         $scope.addAttribute = function () {
             if ($scope.selectedOption) {
-
-                var exist = $scope.product.attributes.find(function(options){
-                    return options.id === $scope.selectedOption.id;
-                });
+                var attributes = $scope.product.attributes,
+                    exist = _.findWhere(attributes, {'id': $scope.selectedOption.id});
                 if (!exist) {
-                    $scope.product.attributes.push($scope.selectedOption);
-                    $scope.updateAttributeList();
+                    attributes.push($scope.selectedOption);
+                    $scope.save(function(){
+                        $scope.updateAttributeList();
+                    });
                 }
             }
         };
 
+        $scope.onOptionChange = function () {
+            console.log("change");
+        }
+
         $scope.updateAttributeList = function () {
             var attributes = $scope.product.attributes,
-                hash = {}, collection = [], len = attributes.length,
-                getLabel = function (id) {
-                    return $scope.labels.find(function (label) {
-                       return  label.id === id;
-                    });
-                }
+                hash = {}, collection = [],
+                len = attributes.length;
 
             while (len--) {
                 var option = attributes[len];
-                if (!hash.hasOwnProperty(option.parentId)) {
-                    collection[collection.length]
-                        = hash[option.parentId]
-                            = { label: getLabel(option.parentId), options: [] };
+                if (option.parent) {
+                     if( !hash.hasOwnProperty(option.parent.id)) {
+                        collection[collection.length]
+                            = hash[option.parent.id]
+                            = { label: option.parent, options: [] };
+                    }
+                    hash[option.parent.id].options.push(option);
                 }
-                hash[option.parentId].options.push(option);
             }
 
             $scope.groupedAttributes = collection;
+            console.log($scope.groupedAttributes);
         }
 
         // TODO set selected attributes for the product.

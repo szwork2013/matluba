@@ -1,0 +1,70 @@
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label>Product Title</label>
+                <p class="form-control-static">{{product.title}}</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Retail Price</label>
+                <p class="form-control-static">{{product.price}}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label>Categories</label>
+                <p class="form-control-static">{{product.category.name}}</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Old Price</label>
+                <p class="form-control-static">{{product.oldPrice}}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label>Product Types</label>
+                <p class="form-control-static">{{product.productType}}</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Rental Price</label>
+                <p class="form-control-static">{{product.rentalPrice}}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Release Date</label>
+                <p class="form-control-static">{{product.releaseDate}}</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Expire Date</label>
+                <p class="form-control-static">{{product.expireDate}}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Product Description</label>
+                <p class="form-control-static">{{product.description}}</p>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-success" ng-click="save()">Create</button>
