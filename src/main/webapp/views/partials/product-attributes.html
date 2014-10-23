@@ -7,13 +7,14 @@
             <div ng-show="enableAddAttribute" class="edit-region">
                 <label class="control-label">Attribute Name</label>
                 <select ng-model="selectedLabel" class="form-control" ng-options="label.name for label in labels" ng-change="onSelect()">
+                    <option value=""> Choose Attribute </option>
                 </select>
                 <br>
                 <div ngShow="selectedLabel">
                     <div class="form-group">
                         <div class="clearfix">
                             <label class="control-label pull-left">Attribute Value</label>
-                            <a href="javascript:void(0)" class="pull-right" ng-click="openAttributeModal()">Add New Option</a>
+                            <a href="javascript:void(0)" class="pull-right" ng-click="openAttributeModal()">Add New Value</a>
                         </div>
                         <select ng-model="selectedOption" ng-options="v.value for v in selectedLabel.children" class="form-control" ng-change="onOptionChange()">
                             <option value=""> Choose value </option>
