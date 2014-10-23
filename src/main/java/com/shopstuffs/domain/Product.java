@@ -61,9 +61,7 @@ public class Product extends AbstractAuditingEntity implements Serializable {
     @Column(name = "expire_date")
     private DateTime expireDate = DateTime.now();
 
-
     private String description;
-
 
 
 

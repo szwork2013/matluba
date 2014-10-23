@@ -7,7 +7,7 @@ shopstuffsApp
     .config(function ($routeProvider, $httpProvider, $translateProvider, USER_ROLES) {
         $routeProvider
             .when('/product/edit/:productId?', {
-                templateUrl: 'views/add.html',
+                templateUrl: 'views/product.html',
                 controller: 'AddProductCtrl',
                 resolve:{
                     resolvedProduct: ['Product', '$routeParams', '$log', function (Product, $routeParams, $log) {

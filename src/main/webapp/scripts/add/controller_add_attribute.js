@@ -4,7 +4,7 @@
 
 
 shopstuffsApp.controller('AddAttributeCtrl',
-    ['$scope', '$modal', '$log', 'Attribute', function ($scope, $modal, $log, Attribute) {
+    ['$scope', '$modal', '$log', 'Attribute', 'Product', function ($scope, $modal, $log, Attribute, Product) {
 
         $scope.labels = Attribute.labels();
 
@@ -28,13 +28,12 @@ shopstuffsApp.controller('AddAttributeCtrl',
 
         $scope.addAttribute = function () {
             if ($scope.selectedOption) {
-                var attributes = $scope.product.attributes,
-                    exist = _.findWhere(attributes, {'id': $scope.selectedOption.id});
+                var exist = _.findWhere($scope.product.attributes, {'id': $scope.selectedOption.id});
                 if (!exist) {
-                    attributes.push($scope.selectedOption);
-                    $scope.save(function(){
-                        $scope.updateAttributeList();
-                    });
+                    // todo
+                    // ({ productId: 213, attributeId: 77 });
+                    $scope.product.attributes.push($scope.selectedOption);
+                    $scope.updateAttributeList();
                 }
             }
         };

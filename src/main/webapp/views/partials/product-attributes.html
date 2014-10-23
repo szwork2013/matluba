@@ -1,0 +1,46 @@
+<div ng-controller="AddAttributeCtrl">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Product Attributes</h3>
+        </div>
+        <div class="panel-body">
+            <div ng-show="enableAddAttribute" class="edit-region">
+                <label class="control-label">Attribute Name</label>
+                <select ng-model="selectedLabel" class="form-control" ng-options="label.name for label in labels" ng-change="onSelect()">
+                </select>
+                <br>
+                <div ngShow="selectedLabel">
+                    <div class="form-group">
+                        <div class="clearfix">
+                            <label class="control-label pull-left">Attribute Value</label>
+                            <a href="javascript:void(0)" class="pull-right" ng-click="openAttributeModal()">Add New Option</a>
+                        </div>
+                        <select ng-model="selectedOption" ng-options="v.value for v in selectedLabel.children" class="form-control" ng-change="onOptionChange()">
+                            <option value=""> Choose value </option>
+                        </select>
+                    </div>
+                    <button type="button" ng-click="addAttribute()" class="btn btn-sm btn-default">Add</button>
+                    <button type="button" ng-click="finishEdit()" class="btn btn-sm btn-default">Finish</button>
+                </div>
+
+            </div>
+            <div ng-hide="enableAddAttribute">
+                <div ng-click="toggleAttributeEdit()" class="edit-region-button">{{enableAddAttribute ? 'Finish' : 'Edit'}}</div>
+            </div>
+
+            <div ng-repeat="group in groupedAttributes">
+                <div class="list">
+                    <div class="list-heading"><span class="caret"></span>{{group.label.name}}</div>
+                    <div class="list-body">
+                        <div ng-repeat="o in group.options" class="list-item clearfix">
+                            <div class="pull-left"><span class="icon-attribute"></span> {{o.value}}</div>
+                            <div class="pull-right list-action-link"><a href="">Remove</a> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Attribute template -->
+<div ng-include src="'views/partials/attribute.modal.partial.html'"></div>

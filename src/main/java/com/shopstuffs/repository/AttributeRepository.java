@@ -17,5 +17,7 @@ public interface AttributeRepository extends JpaRepository<Attribute, Long> {
     @Query("FROM Attribute a WHERE a.parent.id=:parentId")
     List<Attribute> findByParent(@Param("parentId") Long parentId);
 
+    @Query("FROM Attribute a WHERE a.parent.id IS NOT NULL and id=:id ")
+    List<Attribute> getOption(@Param("id") Long id);
 
 }

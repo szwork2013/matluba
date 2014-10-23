@@ -28,14 +28,15 @@ shopstuffsApp.controller('AttributeModalCtrl', function ($scope, label, Attribut
             return;
         }
 
-        var attribute = new Attribute({ value: item.value,
-                    parent: { id: $scope.label.id },
-                    type: $scope.label.type });
-
-        attribute.$save();
-
-        $scope.label.children.push( attribute );
+        new Attribute({ value: item.value, parent: { id: $scope.label.id }, type: $scope.label.type })
+            .$save(function(attribute) {
+                $scope.label.children.push( attribute );
+        });
     }
+
+    $scope.deleteOption = function (option) {
+        Attribute.delete({ id: option.id });
+    };
 
     $scope.ok = function () {
         $modalInstance.close();

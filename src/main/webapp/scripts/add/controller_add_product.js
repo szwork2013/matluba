@@ -7,9 +7,9 @@ shopstuffsApp
     .controller('AddProductCtrl', ['$scope', '$log', 'resolvedProduct', 'Product', 'Category', 'ProductTypes',
         function($scope, $log, resolvedProduct, Product, Category, ProductTypes) {
 
-    $scope.templates = {'edit': 'views/partials/product.edit.form.partial.html',
-        'read': 'views/partials/product.read.partial.html',
-        'attribute': 'views/partials/product.attribute.partial.html'};
+    $scope.templates = {'edit': 'views/partials/product-form.html',
+        'read': 'views/partials/product-view.html',
+        'attribute': 'views/partials/product-attributes.html'};
 
     $scope.view = $scope.templates.edit;
 
