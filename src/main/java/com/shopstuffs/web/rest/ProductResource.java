@@ -6,7 +6,7 @@ import com.shopstuffs.domain.Product;
 import com.shopstuffs.domain.ProductType;
 import com.shopstuffs.repository.AttributeRepository;
 import com.shopstuffs.repository.ProductRepository;
-import com.shopstuffs.web.rest.dto.ProductAttribute;
+import com.shopstuffs.web.rest.dto.ProductAttributeDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -106,7 +106,7 @@ public class ProductResource {
     @RequestMapping(value = "/rest/product/attribute",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> addAttribute(@RequestBody ProductAttribute productAttribute) {
+    public ResponseEntity<String> addAttribute(@RequestBody ProductAttributeDTO productAttribute) {
         log.debug("REST request to get product types");
 
         Product product = productRepository.findOne(productAttribute.getProductId());

@@ -109,11 +109,16 @@ angular.module('shopstuffsApp')
             scope: {
                 maxDate: "=",
                 minDate: "=",
-                format: "="
+                format: "=",
+                useMls:"="
             },
             controller: function ($scope) {
 
                 var formatDate = function (date, format) {
+                    if ($scope.useMls) {
+                      return date.getTime();
+                    }
+
                     var val = {
                         d: date.getDate(),
                         m: date.getMonth() + 1,
@@ -164,7 +169,7 @@ angular.module('shopstuffsApp')
                 }
 
                 this.minChanged = function (date) {
-                    $scope.minDate = formatDate(date, parseFormat(this.getRawFormat()));
+                    $scope.minDate =  formatDate(date, parseFormat(this.getRawFormat()));
 
                     var oneDayAfter = new Date(date);
                     oneDayAfter.setDate(oneDayAfter.getDate() + 1);
@@ -172,10 +177,11 @@ angular.module('shopstuffsApp')
 
                     if (date.valueOf() > $scope.maxScope.getDate().valueOf()) {
                         $scope.maxScope.setDate(oneDayAfter);
-                        $scope.maxDate = formatDate(oneDayAfter, parseFormat(this.getRawFormat()));
                     } else {
                         $scope.maxScope.setDate($scope.maxScope.getDate());
                     }
+
+                    $scope.maxDate = formatDate(oneDayAfter, parseFormat(this.getRawFormat()));
 
                     $scope.minScope.open(false);
                     $scope.maxScope.open(true);
@@ -205,7 +211,6 @@ angular.module('shopstuffsApp')
 
                 scope.setMin = function (date) {
                     minDate = date;
-                    console.log('min date is set ' + date);
                 }
 
                 scope.setDate = function (date) {
@@ -328,7 +333,6 @@ angular.module('shopstuffsApp')
                 $inputSibling.attr('placeholder', scope.wingPlaceholder).closest(parentPopover).hide();
 
                 $input.focusin(function () {
-                    console.log("focus");
                     $element.keyup(keyUpHandler);
                     $input.focusout(delayedReset);
                     $inputSibling.closest(parentPopover).show();

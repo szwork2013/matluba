@@ -1,15 +1,17 @@
-<form name="product_form" ng-submit="saveProduct()">
+<div >
     <div class="row">
         <div class="col-md-8">
             <div class="form-group">
                 <label>Product Title</label>
-                <input ng-model="product.title" class="form-control" />
+                <span class="error" ng-show="productForm.title.error">{{productForm.title.error}}</span>
+                <input ng-model="product.title" class="form-control"/>
             </div>
         </div>
         <div class="col-md-4">
             <div class="form-group">
                 <label>Retail Price</label>
-                <input ng-model="product.price" class="form-control" />
+                <span class="error" ng-show="productForm.price.error">{{productForm.price.error}}</span>
+                <input ng-model="product.price" class="form-control"/>
             </div>
         </div>
     </div>
@@ -18,15 +20,17 @@
         <div class="col-md-8">
             <div class="form-group">
                 <label>Categories</label>
+                <span class="error" ng-show="productForm.category.error">{{productForm.category.error}}</span>
                 <select ng-model="product.category" ng-options="category.name for category in categories"
-                        class="form-control"></select>
+                        class="form-control" name="category"></select>
             </div>
         </div>
         <div class="col-md-4">
             <div class="form-group">
                 <label>Old Price</label>
                 <small>(optional)</small>
-                <input ng-model="product.oldPrice" class="form-control" />
+                <span class="error" ng-show="productForm.oldPrice.error">{{productForm.oldPrice.error}}</span>
+                <input ng-model="product.oldPrice" class="form-control"/>
             </div>
 
         </div>
@@ -36,6 +40,7 @@
         <div class="col-md-8">
             <div class="form-group">
                 <label>Product Types</label>
+                <span class="error" ng-show="productForm.productType.error">{{productForm.productType.error}}</span>
                 <select ng-model="product.productType" ng-options="type for type in types"
                         class="form-control"></select>
             </div>
@@ -43,21 +48,25 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label>Rental Price</label>
+                <small>(optional)</small>
+                <span class="error" ng-show="productForm.rentalPrice.error">{{productForm.rentalPrice.error}}</span>
                 <input ng-model="product.rentalPrice" class="form-control" />
             </div>
         </div>
     </div>
 
-    <div class="row" date-range format="format" max-date="product.expireDate" min-date="product.releaseDate">
+    <div class="row" date-range format="displayFormat" use-mls="useTime" max-date="product.expireDate" min-date="product.releaseDate">
         <div class="col-md-4">
             <div class="form-group">
                 <label>Release Date</label>
+                <span class="error" ng-show="productForm.releaseDate.error">{{productForm.releaseDate.error}}</span>
                 <range-datepicker/>
             </div>
         </div>
         <div class="col-md-4">
             <div class="form-group">
                 <label>Expire Date</label>
+                <span class="error" ng-show="productForm.expireDate.error">{{productForm.expireDate.error}}</span>
                 <range-datepicker max-date="true"/>
             </div>
         </div>
@@ -74,4 +83,4 @@
 
     <button class="btn btn-success" ng-click="save()">Create</button>
     <button class="btn btn-default">Cancel</button>
-</form>
+</div>

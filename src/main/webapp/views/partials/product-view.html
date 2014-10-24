@@ -48,13 +48,13 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label>Release Date</label>
-                <p class="form-control-static">{{product.releaseDate}}</p>
+                <p class="form-control-static">{{product.releaseDate | date : displayFormat }}</p>
             </div>
         </div>
         <div class="col-md-4">
             <div class="form-group">
                 <label>Expire Date</label>
-                <p class="form-control-static">{{product.expireDate}}</p>
+                <p class="form-control-static">{{product.expireDate | date : displayFormat}}</p>
             </div>
         </div>
     </div>
@@ -67,4 +67,4 @@
             </div>
         </div>
     </div>
-    <button class="btn btn-success" ng-click="save()">Create</button>
+    <button class="btn btn-success" ng-click="edit()">Edit</button>

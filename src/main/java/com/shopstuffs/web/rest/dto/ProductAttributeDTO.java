@@ -3,13 +3,17 @@ package com.shopstuffs.web.rest.dto;
 /**
  * Created by jasurbek.umarov on 10/23/2014.
  */
-public class ProductAttribute {
+public class ProductAttributeDTO {
 
     private Long productId;
 
     private Long attributeId;
 
-    public ProductAttribute(Long productId, Long attributeId) {
+
+    public ProductAttributeDTO() {
+    }
+
+    public ProductAttributeDTO(Long productId, Long attributeId) {
         this.productId = productId;
         this.attributeId = attributeId;
     }

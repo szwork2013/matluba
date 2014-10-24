@@ -1,18 +1,14 @@
 <div ng-cloak>
-    <h3>Welcome, Matluba Admin Page!</h3>
+    <div class="welcome-bar">
+        <h4>Welcome, Matluba Admin Page!</h4>
+    </div>
+
 
     <div ng-switch="authenticated">
         <div ng-switch-when="true">
-            <div class="alert alert-success">
-                You are logged in as user "{{account.login}}"
-            </div>
-            <ul class="list-group">
-                <li class="list-group-item"><a href="#/product">View Products</a></li>
-                <li class="list-group-item"><a href="#/product/edit">Add Product</a></li>
-            </ul>
+            <div ng-include src="'views/products.html'"></div>
         </div>
-
-        <div class="alert alert-warning" ng-switch-when="false" translate="global.messages.info.authenticated">
+        <div ng-switch-when="false" class="alert" translate="global.messages.info.authenticated">
             If you want to <a href="#/login">authenticate</a>, you can try the default login="admin" and
             password="admin".
         </div>

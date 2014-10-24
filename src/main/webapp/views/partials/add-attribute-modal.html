@@ -17,18 +17,18 @@
 
             <hr />
 
-            <h4>New Attribute Option</h4>
+            <label>New Attribute Option</label>
             <goose-input on-add="addOption(item)" wing-placeholder="Alias of Option" input-placeholder="New Option Name"></goose-input>
             <br>
-            <ul class="list-group">
-                <li class="list-group-item clearfix" ng-repeat="option in label.children" ng-mouseover="active=value" ng-mouseleave="active=null">
-                    <div class="pull-left">
-                        <h4 class="list-group-item-heading">{{ option.value }}</h4>
-                        <p class="list-group-item-text">{{ option.alias }}</p>
+            <div class="list">
+                <div class="list-heading"><span class="caret"></span>{{group.label.name}}</div>
+                <div class="list-body">
+                    <div ng-repeat="option in label.children" ng-mouseover="active=value" ng-mouseleave="active=null" class="list-item clearfix">
+                        <div class="pull-left"><span class="icon-attribute"></span> {{ option.value }}</div>
+                        <a href="#" class="pull-right btn-link" ng-show="active==value" ng-click="remove(value)">Delete</a>
                     </div>
-                    <a href="#" class="pull-right btn-link" ng-show="active==value" ng-click="remove(value)">Delete</a>
-                </li>
-            </ul>
+                </div>
+            </div>
         </div>
     <div class="modal-footer">
         <button class="btn btn-primary" ng-click="ok()">OK</button>

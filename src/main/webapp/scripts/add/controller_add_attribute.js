@@ -27,14 +27,17 @@ shopstuffsApp.controller('AddAttributeCtrl',
         };
 
         $scope.addAttribute = function () {
-            if ($scope.selectedOption) {
-                var exist = _.findWhere($scope.product.attributes, {'id': $scope.selectedOption.id});
+            var option = $scope.selectedOption;
+            if (option ) {
+                $scope.product.attributes.push(option);
+                $scope.updateAttributeList();
+                return;
                 if (!exist) {
-                    // todo
-                    // ({ productId: 213, attributeId: 77 });
-                    $scope.product.attributes.push($scope.selectedOption);
-                    $scope.updateAttributeList();
+                    Product.addAttribute({ productId: $scope.product.id, attributeId: option.id})
+                .$promise.then(function () {
+                    });
                 }
+                var exist = _.findWhere($scope.product.attributes, {'id': option.id});
             }
         };
 
