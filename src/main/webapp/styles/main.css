@@ -379,3 +379,38 @@ ol{
 ol li {
     margin-bottom: 0.75em;
 }
+
+
+.products-table td {
+    font-size: 0.9em;
+    border-top-color: #eee;
+}
+.products-table th {
+    font-size: 0.8em;
+    text-transform: uppercase;
+    color: #666;
+    font-weight: 200;
+}
+.products-table .less-value {
+    font-size: 0.9em;
+    color: #777;
+}
+.products-table .super-value {
+    vertical-align: super;
+    font-size: 0.6em;
+}
+.products-table .glyphicon {
+    color: #888;
+    cursor: pointer;
+    font-size:80%;
+}
+.products-table .glyphicon:hover {
+    color: #FDAA14;
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td .products-table th {
+    border-top: 1px solid #eee;
+}
+.table > thead > tr > th {
+    border-bottom: 2px solid #eee;
+}
