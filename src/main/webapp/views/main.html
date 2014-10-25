@@ -5,9 +5,30 @@
 
 
     <div ng-switch="authenticated">
+
         <div ng-switch-when="true">
-            <div ng-include src="'views/products.html'"></div>
+            <!-- Nav tabs -->
+            <div class="row">
+                <div class="col-md-2">
+                    <ul class="nav product-nav" role="tablist">
+                        <li class="active"><a href="#products" role="tab" data-toggle="tab">Products</a></li>
+                        <li><a href="#services" role="tab" data-toggle="tab">Services</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-10">
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="products">
+                            <div ng-include src="'views/products.html'"></div>
+                        </div>
+                        <div class="tab-pane" id="services">
+                            <h3 class="text-muted">No Content</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
         <div ng-switch-when="false" class="alert" translate="global.messages.info.authenticated">
             If you want to <a href="#/login">authenticate</a>, you can try the default login="admin" and
             password="admin".
