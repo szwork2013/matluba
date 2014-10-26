@@ -58,6 +58,7 @@ public class ProductResource {
     @Timed
     public List<Product> getAll() {
         log.debug("REST request to get all Products");
+
         return productRepository.findAll();
     }
 
@@ -124,6 +125,7 @@ public class ProductResource {
             productRepository.save(product);
             return new ResponseEntity<String>("Attribute has been addded successfully!", HttpStatus.CREATED);
         }
+
 
         return new ResponseEntity<String>("Attribute not exist!", HttpStatus.BAD_REQUEST);
     }

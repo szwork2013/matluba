@@ -13,4 +13,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
 //    @Query("select count(p.i) ")
 //    long hasAttribute(Product product, Long attrId);
+
+
 }
