@@ -1,4 +1,4 @@
-package com.shopstuffs.domain.metamodel;
+package com.shopstuffs.domain;
 /**
  * Created by jasurbek.umarov on 10/25/2014.
  */

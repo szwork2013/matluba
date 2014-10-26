@@ -1,11 +1,10 @@
 package com.shopstuffs.repository.specifications;
 
-import com.shopstuffs.domain.Category;
 import com.shopstuffs.domain.Product;
-import com.shopstuffs.domain.metamodel.Product_;
+import com.shopstuffs.domain.Product_;
 
 import javax.persistence.criteria.*;
-import javax.persistence.metamodel.EntityType;
+
 import org.springframework.data.jpa.domain.Specification;
 
 
