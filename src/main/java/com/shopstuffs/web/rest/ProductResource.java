@@ -6,6 +6,7 @@ import com.shopstuffs.domain.Product;
 import com.shopstuffs.domain.ProductType;
 import com.shopstuffs.repository.AttributeRepository;
 import com.shopstuffs.repository.ProductRepository;
+import com.shopstuffs.repository.specifications.ProductSpecifications;
 import com.shopstuffs.web.rest.dto.ProductAttributeDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,7 +61,6 @@ public class ProductResource {
     @Timed
     public List<Product> getAll() {
         log.debug("REST request to get all Products");
-
         return productRepository.findAll();
     }
 
@@ -110,7 +110,7 @@ public class ProductResource {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> addAttribute(@RequestBody ProductAttributeDTO productAttribute) {
-        log.debug("REST request to get product types");
+        log.debug("REST request to get product attributes");
 
         Product product = productRepository.findOne(productAttribute.getProductId());
         Collection<Attribute> attributes = product.getAttributes();
@@ -139,7 +139,7 @@ public class ProductResource {
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> deleteAttribute(@PathParam("productId") Long productId, @PathVariable("attrId") Long attrId) {
-        log.debug("REST request to get product types");
+        log.debug("REST request to delete product");
 
         Product product = productRepository.findOne(productId);
         Collection<Attribute> attributes = product.getAttributes();
@@ -152,4 +152,19 @@ public class ProductResource {
 
         return new ResponseEntity<String>("Attribute has been deleted successfully!", HttpStatus.OK);
     }
+
+    /**
+     * DELETE  /rest/products/types -> get all product types.
+     */
+    @RequestMapping(value = "/rest/product/search/{title}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Product>> search(@PathVariable("title") String title) {
+        List<Product> matchedProducts = productRepository.findAll(ProductSpecifications.hasTitle(title));
+        if (matchedProducts == null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        return new ResponseEntity<List<Product>>(matchedProducts, HttpStatus.OK);
+    }
+
 }

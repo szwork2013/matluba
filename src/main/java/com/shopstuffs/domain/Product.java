@@ -66,19 +66,6 @@ public class Product extends AbstractAuditingEntity implements Serializable {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     public Long getId() {
         return id;
     }

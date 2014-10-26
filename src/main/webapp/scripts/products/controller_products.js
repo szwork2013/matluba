@@ -1,5 +1,5 @@
 'use strict';
 
 shopstuffsApp.controller('ProductsCtrl', function ($scope,  Product) {
-    $scope.products = Product.query();
+    $scope.products = Product.search({title:'nike'});
 });
