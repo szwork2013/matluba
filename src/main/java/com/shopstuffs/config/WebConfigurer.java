@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.context.embedded.ServletContextInitializer;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.web.multipart.support.MultipartFilter;
 
 import javax.inject.Inject;
 import javax.servlet.*;
@@ -39,6 +40,7 @@ public class WebConfigurer implements ServletContextInitializer {
     public void onStartup(ServletContext servletContext) throws ServletException {
         log.info("Web application configuration, using profiles: {}", Arrays.toString(env.getActiveProfiles()));
         EnumSet<DispatcherType> disps = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ASYNC);
+        initMultipartFilter(servletContext, disps);
         initMetrics(servletContext, disps);
         if (env.acceptsProfiles(Constants.SPRING_PROFILE_PRODUCTION)) {
             initCachingHttpHeadersFilter(servletContext, disps);
@@ -47,6 +49,14 @@ public class WebConfigurer implements ServletContextInitializer {
         initGzipFilter(servletContext, disps);
         log.info("Web application fully configured");
     }
+
+    private void initMultipartFilter(ServletContext servletContext, EnumSet<DispatcherType> dispatcherTypes) {
+        log.debug("Multipart filter init");
+        FilterRegistration.Dynamic multipartFilter = servletContext.addFilter("MultipartFilter", new CustomMultipartFilter());
+        multipartFilter.addMappingForUrlPatterns(dispatcherTypes, true, "/*");
+        multipartFilter.setAsyncSupported(true);
+    }
+
 
     /**
      * Initializes the GZip filter.
