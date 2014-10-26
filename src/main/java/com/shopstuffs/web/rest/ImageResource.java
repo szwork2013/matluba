@@ -9,8 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.inject.Inject;
+import java.io.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,10 +62,10 @@ public class ImageResource {
     public ResponseEntity<Image> get(@PathVariable Long id) {
         log.debug("REST request to get Image : {}", id);
         return Optional.ofNullable(imageRepository.findOne(id))
-            .map(image -> new ResponseEntity<>(
-                image,
-                HttpStatus.OK))
-            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .map(image -> new ResponseEntity<>(
+                        image,
+                        HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     /**
@@ -76,5 +78,22 @@ public class ImageResource {
     public void delete(@PathVariable Long id) {
         log.debug("REST request to delete Image : {}", id);
         imageRepository.delete(id);
+    }
+
+
+    @RequestMapping(value = "/rest/images/upload", method = RequestMethod.POST)
+    public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile multipartFile) {
+        if (!multipartFile.isEmpty()) {
+            final String name = multipartFile.getOriginalFilename();
+            try {
+                final File file = new File("D:\\Project\\matluba\\images\\" + name);
+                multipartFile.transferTo(file);
+                return new ResponseEntity<String>("You successfully uploaded " + name + " into " + name + "-uploaded !", HttpStatus.CREATED);
+            } catch (Exception e) {
+                return new ResponseEntity<String>("You failed to upload " + name + " => " + e.getMessage(), HttpStatus.BAD_REQUEST);
+            }
+        } else {
+            return new ResponseEntity<String>("You failed to upload, because the file was empty.", HttpStatus.BAD_REQUEST);
+        }
     }
 }
