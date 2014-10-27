@@ -214,7 +214,7 @@ public class ProductResource {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    private Pageable createPageRequest(Integer pageIndex, Sort sort) {
+    private Pageable createPageRequest(int pageIndex, Sort sort) {
         return new PageRequest(Math.max(0, pageIndex - 1), NUMBER_OF_PRODUCTS_PER_PAGE, sort);
     }
 }
