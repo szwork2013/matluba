@@ -409,6 +409,8 @@
 							break;
 						case 'mm':
 						case 'm':
+						case 'MM':
+						case 'M':
 							month = val - 1;
 							date.setMonth(val - 1);
 							break;
@@ -437,7 +439,7 @@
 			val.mm = (val.m < 10 ? '0' : '') + val.m;
 			var date = [];
 			for (var i=0, cnt = format.parts.length; i < cnt; i++) {
-				date.push(val[format.parts[i]]);
+				date.push(val[format.parts[i].toLowerCase()]);
 			}
 			return date.join(format.separator);
 		},

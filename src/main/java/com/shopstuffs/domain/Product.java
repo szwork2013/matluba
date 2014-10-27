@@ -37,6 +37,7 @@ public class Product extends AbstractAuditingEntity implements Serializable {
     @Column(name = "old_price")
     private BigDecimal oldPrice;
 
+    @NotNull
     @ManyToOne
     private Category category;
 

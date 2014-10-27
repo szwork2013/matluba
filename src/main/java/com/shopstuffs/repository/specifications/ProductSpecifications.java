@@ -1,11 +1,16 @@
 package com.shopstuffs.repository.specifications;
 
+import com.shopstuffs.domain.Category;
+import com.shopstuffs.domain.Category_;
 import com.shopstuffs.domain.Product;
 import com.shopstuffs.domain.Product_;
 
 import javax.persistence.criteria.*;
 
+import org.joda.time.DateTime;
 import org.springframework.data.jpa.domain.Specification;
+
+import java.math.BigDecimal;
 
 
 /**
@@ -26,8 +31,73 @@ public class ProductSpecifications {
       return new Specification<Product>() {
           @Override
           public Predicate toPredicate(Root<Product> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
-              return builder.equal(root.get(Product_.title), title);
+              return builder.like(root.get(Product_.title), getLikePattern(title));
+          }
+
+          private String getLikePattern(final String searchTerm) {
+              StringBuilder pattern = new StringBuilder();
+              pattern.append(searchTerm.toLowerCase());
+              pattern.append("%");
+              return pattern.toString();
           }
       };
   }
+  public static Specification<Product> inCategory(String categoryName) {
+       return new Specification<Product>() {
+            @Override
+            public Predicate toPredicate(Root<Product> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
+                Join<Product, Category> category = root.join(Product_.category);
+                return category.on(builder.equal(root.get(Category_.name), categoryName));
+            }
+        };
+  }
+
+    public static Specification<Product> betweenDates(DateTime from, DateTime to) {
+        return new Specification<Product>() {
+            @Override
+            public Predicate toPredicate(Root<Product> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
+                if (from == null && to != null) {
+                    return builder.equal(root.get(Product_.releaseDate) , from);
+                }
+
+                if (from != null && to == null) {
+                    return builder.equal(root.get(Product_.expireDate) , to);
+                }
+
+
+
+                return builder
+
+                        .greaterThanOrEqualTo(root.get(Product_.expireDate) , from)
+
+                        .and(root.get(Product_.expireDate) , from);
+            }
+
+            private String getLikePattern(final String searchTerm) {
+                StringBuilder pattern = new StringBuilder();
+                pattern.append(searchTerm.toLowerCase());
+                pattern.append("%");
+                return pattern.toString();
+            }
+        };
+    }
+
+    public static Specification<Product> hasPrice(BigDecimal price) {
+        return new Specification<Product>() {
+            @Override
+            public Predicate toPredicate(Root<Product> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
+                return builder.equal(root.get(Product_.price), price);
+            }
+        };
+    }
+
+    public static Specification<Product> hasRentalPrice(BigDecimal price) {
+        return new Specification<Product>() {
+            @Override
+            public Predicate toPredicate(Root<Product> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
+                return builder.equal(root.get(Product_.rentalPrice), price);
+            }
+        };
+    }
+
 }

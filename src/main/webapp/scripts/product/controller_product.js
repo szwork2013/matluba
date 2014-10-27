@@ -102,7 +102,8 @@ shopstuffsApp
                 $scope.attribute_view = $scope.templates.attribute;
             }, function(error){
                 $scope.saveStatus = null;
-                $scope.error = error;
+                $log.info(error);
+                $scope.error = "ServerSide Unknown Error";
             });
         }
     };

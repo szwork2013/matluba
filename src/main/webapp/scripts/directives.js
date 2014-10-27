@@ -130,7 +130,7 @@ angular.module('shopstuffsApp')
 
                     var date = [];
                     for (var i = 0, cnt = format.parts.length; i < cnt; i++) {
-                        date.push(val[format.parts[i]]);
+                        date.push(val[format.parts[i].toLowerCase()]);
                     }
 
                     return date.join(format.separator);

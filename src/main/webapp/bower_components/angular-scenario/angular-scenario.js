@@ -2909,7 +2909,7 @@ function select( selector, context, results, seed ) {
 
 // One-time assignments
 
-// Sort stability
+// sort stability
 support.sortStable = expando.split("").sort( sortOrder ).join("") === expando;
 
 // Support: Chrome<14

@@ -6,16 +6,25 @@ import com.shopstuffs.domain.Product;
 import com.shopstuffs.domain.ProductType;
 import com.shopstuffs.repository.AttributeRepository;
 import com.shopstuffs.repository.ProductRepository;
+import com.shopstuffs.repository.sort.ProductSort;
 import com.shopstuffs.repository.specifications.ProductSpecifications;
 import com.shopstuffs.web.rest.dto.ProductAttributeDTO;
+import com.shopstuffs.web.rest.dto.ProductCriteriaDTO;
+import com.wordnik.swagger.core.filter.SpecFilter;
+import org.hibernate.type.OrderedSetType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.persistence.criteria.Predicate;
 import javax.xml.ws.Response;
 import java.util.ArrayList;
 import javax.ws.rs.PathParam;
@@ -23,6 +32,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+
+import static com.shopstuffs.repository.specifications.ProductSpecifications.*;
 
 /**
  * REST controller for managing Product.
@@ -38,6 +49,8 @@ public class ProductResource {
 
     @Inject
     private AttributeRepository attributeRepository;
+
+    private Integer NUMBER_OF_PRODUCTS_PER_PAGE = 20;
 
     /**
      * POST  /rest/products -> Create a new product.
@@ -61,7 +74,7 @@ public class ProductResource {
     @Timed
     public List<Product> getAll() {
         log.debug("REST request to get all Products");
-        return productRepository.findAll();
+        return productRepository.findAll(ProductSort.defaultSort());
     }
 
     /**
@@ -156,15 +169,22 @@ public class ProductResource {
     /**
      * DELETE  /rest/products/types -> get all product types.
      */
-    @RequestMapping(value = "/rest/product/search/{title}",
-            method = RequestMethod.GET,
+    @RequestMapping(value = "/rest/product/filter",
+            method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Product>> search(@PathVariable("title") String title) {
-        List<Product> matchedProducts = productRepository.findAll(ProductSpecifications.hasTitle(title));
-        if (matchedProducts == null)
+    public ResponseEntity<List<Product>> search(@RequestBody ProductCriteriaDTO criterias) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-        return new ResponseEntity<List<Product>>(matchedProducts, HttpStatus.OK);
     }
 
+    private Pageable createPageSpec(Integer pageIndex, Sort sort) {
+        Pageable pageSpecification = new PageRequest(pageIndex, NUMBER_OF_PRODUCTS_PER_PAGE, sort);
+        return pageSpecification;
+    }
+
+    private void buildFilter(ProductCriteriaDTO criteriaDTO) {
+        productRepository.findAll(
+                where(hasTitle(criteriaDTO.getTitle()))
+                        .and(inCaterogy(criteriaDTO.getCategoryName()))
+                        .and(betweenDates(criteriaDTO.getReleaseDate(), criteriaDTO.getExpireDate())));
+    }
 }
