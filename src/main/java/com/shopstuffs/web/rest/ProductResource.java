@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.shopstuffs.repository.specifications.ProductSpecifications.*;
+import static org.springframework.data.jpa.domain.Specifications.where;
 
 /**
  * REST controller for managing Product.
@@ -182,9 +183,8 @@ public class ProductResource {
     }
 
     private void buildFilter(ProductCriteriaDTO criteriaDTO) {
-        productRepository.findAll(
-                where(hasTitle(criteriaDTO.getTitle()))
-                        .and(inCaterogy(criteriaDTO.getCategoryName()))
+        productRepository.findAll(where(hasTitle(criteriaDTO.getTitle()))
+                        .and(inCategory(criteriaDTO.getCategoryName()))
                         .and(betweenDates(criteriaDTO.getReleaseDate(), criteriaDTO.getExpireDate())));
     }
 }

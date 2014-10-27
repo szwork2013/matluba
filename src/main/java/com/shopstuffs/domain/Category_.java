@@ -13,4 +13,5 @@ import java.math.BigDecimal;
 @StaticMetamodel(Category.class)
 public class Category_ {
     public static volatile SingularAttribute<Category, String> name;
+    public static volatile SingularAttribute<Category, Long> id;
 }
