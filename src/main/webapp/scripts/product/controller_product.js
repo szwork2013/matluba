@@ -7,9 +7,12 @@ shopstuffsApp
     .controller('AddProductCtrl', ['$scope', '$log', 'resolvedProduct', 'Product', 'Category', 'ProductTypes',
         function($scope, $log, resolvedProduct, Product, Category, ProductTypes) {
 
-    $scope.templates = {'edit': 'views/partials/product-form.html',
+    $scope.templates = {
+        'edit': 'views/partials/product-form.html',
         'read': 'views/partials/product-view.html',
-        'attribute': 'views/partials/product-attributes.html'};
+        'attribute': 'views/partials/product-attributes.html',
+        'image': 'views/partials/product-images.html'
+    };
 
     $scope.product = !angular.equals(resolvedProduct, {}) ? resolvedProduct : new Product({images: [], attributes: [], id: null });
 

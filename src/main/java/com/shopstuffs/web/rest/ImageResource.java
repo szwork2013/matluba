@@ -3,8 +3,10 @@ package com.shopstuffs.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.shopstuffs.domain.Image;
 import com.shopstuffs.repository.ImageRepository;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.inject.Inject;
-import java.io.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
@@ -88,9 +94,9 @@ public class ImageResource {
             try {
                 final File file = new File("D:\\Project\\matluba\\images\\" + name);
                 multipartFile.transferTo(file);
-                return new ResponseEntity<String>("You successfully uploaded " + name + " into " + name + "-uploaded !", HttpStatus.CREATED);
+                return new ResponseEntity<String>("You successfully uploaded uploaded", HttpStatus.CREATED);
             } catch (Exception e) {
-                return new ResponseEntity<String>("You failed to upload " + name + " => " + e.getMessage(), HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<String>(StringEscapeUtils.escapeJavaScript("You failed to upload " + name + " => " + e.getMessage()), HttpStatus.BAD_REQUEST);
             }
         } else {
             return new ResponseEntity<String>("You failed to upload, because the file was empty.", HttpStatus.BAD_REQUEST);
