@@ -7,12 +7,9 @@ import com.shopstuffs.domain.ProductType;
 import com.shopstuffs.repository.AttributeRepository;
 import com.shopstuffs.repository.ProductRepository;
 import com.shopstuffs.repository.sort.ProductSort;
-import com.shopstuffs.repository.specifications.ProductSpecifications;
 import com.shopstuffs.web.rest.dto.ProductAttributeDTO;
 import com.shopstuffs.web.rest.dto.ProductCriteriaDTO;
 import com.shopstuffs.web.rest.dto.ProductResultDTO;
-import com.wordnik.swagger.core.filter.SpecFilter;
-import org.hibernate.type.OrderedSetType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -27,8 +24,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import javax.persistence.criteria.Predicate;
-import javax.xml.ws.Response;
 import java.util.ArrayList;
 import javax.ws.rs.PathParam;
 import java.util.Arrays;
@@ -173,7 +168,7 @@ public class ProductResource {
     @RequestMapping(value = "/rest/product/search/{page}",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ProductResultDTO> search(@PathParam("page") Integer pageIndex, @RequestBody ProductCriteriaDTO criterias) {
+    public ResponseEntity<ProductResultDTO> search(@PathVariable("page") String page, @RequestBody ProductCriteriaDTO criterias) {
         List<Specification<Product>> specs = new ArrayList<Specification<Product>>();
 
 
@@ -198,12 +193,12 @@ public class ProductResource {
 
         ProductResultDTO result = null;
         if (linkedSpecs != null){
-                Pageable pageable = createPageRequest(pageIndex, ProductSort.defaultSort());
-                Page<Product> page = productRepository.findAll(linkedSpecs, pageable);
-                if (page != null) {
-                    result = new ProductResultDTO(page.getContent(),
-                            page.getTotalPages(),
-                            page.getNumber() + 1);
+                Pageable pageable = createPageRequest(Integer.parseInt(page), ProductSort.defaultSort());
+                Page<Product> pages = productRepository.findAll(linkedSpecs, pageable);
+                if (pages != null) {
+                    result = new ProductResultDTO(pages.getContent(),
+                            pages.getTotalPages(),
+                            pages.getNumber() + 1);
                 }
         }
 
