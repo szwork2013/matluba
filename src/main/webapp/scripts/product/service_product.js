@@ -7,7 +7,7 @@ shopstuffsApp
             'get': { method: 'GET'},
             'addAttribute': {  method: 'POST', url: 'app/rest/product/attribute', params: {} },
             'deleteAttribute': {  method: 'DELETE', url: 'app/rest/product/attribute', params: {} },
-            'search': {method: 'GET', isArray: true, url:'app/rest/product/search/:title', params: {}}
+            'search': {method: 'POST', isArray: true, url:'app/rest/product/search/:page', params:{}}
         });
     })
     .factory('ProductTypes', function($resource) {

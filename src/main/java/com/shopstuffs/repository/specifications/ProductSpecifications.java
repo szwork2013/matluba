@@ -43,13 +43,13 @@ public class ProductSpecifications {
       };
   }
 
-  public static Specification<Product> inCategory(String categoryId) {
+  public static Specification<Product> inCategory(String categName) {
        return new Specification<Product>() {
             @Override
             public Predicate toPredicate(Root<Product> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
                 final Path<Category> category = root.get(Product_.category);
                 final Path<String> name = category.get(Category_.name);
-                return builder.equal(name, categoryId);
+                return builder.equal(name, categName);
 
             }
         };

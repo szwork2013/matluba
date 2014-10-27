@@ -10,14 +10,17 @@ import com.shopstuffs.repository.sort.ProductSort;
 import com.shopstuffs.repository.specifications.ProductSpecifications;
 import com.shopstuffs.web.rest.dto.ProductAttributeDTO;
 import com.shopstuffs.web.rest.dto.ProductCriteriaDTO;
+import com.shopstuffs.web.rest.dto.ProductResultDTO;
 import com.wordnik.swagger.core.filter.SpecFilter;
 import org.hibernate.type.OrderedSetType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -167,24 +170,51 @@ public class ProductResource {
         return new ResponseEntity<String>("Attribute has been deleted successfully!", HttpStatus.OK);
     }
 
-    /**
-     * DELETE  /rest/products/types -> get all product types.
-     */
-    @RequestMapping(value = "/rest/product/filter",
+    @RequestMapping(value = "/rest/product/search/{page}",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Product>> search(@RequestBody ProductCriteriaDTO criterias) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<ProductResultDTO> search(@PathParam("page") Integer pageIndex, @RequestBody ProductCriteriaDTO criterias) {
+        List<Specification<Product>> specs = new ArrayList<Specification<Product>>();
+
+
+        if (criterias.getTitle() != null) {
+            specs.add(hasTitle(criterias.getTitle()));
+        }
+
+        if (criterias.getCategoryName() != null) {
+            specs.add(inCategory(criterias.getCategoryName()));
+        }
+
+
+        Specifications<Product> linkedSpecs = null;
+        for (Specification<Product> productSpecification : specs) {
+            if (linkedSpecs == null) {
+                linkedSpecs = where(productSpecification);
+            } else {
+                linkedSpecs = linkedSpecs.and(productSpecification);
+            }
+        }
+
+
+        ProductResultDTO result = null;
+        if (linkedSpecs != null){
+                Pageable pageable = createPageRequest(pageIndex, ProductSort.defaultSort());
+                Page<Product> page = productRepository.findAll(linkedSpecs, pageable);
+                if (page != null) {
+                    result = new ProductResultDTO(page.getContent(),
+                            page.getTotalPages(),
+                            page.getNumber() + 1);
+                }
+        }
+
+        return Optional.ofNullable(result)
+                .map(r -> new ResponseEntity<>(
+                        r,
+                        HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    private Pageable createPageSpec(Integer pageIndex, Sort sort) {
-        Pageable pageSpecification = new PageRequest(pageIndex, NUMBER_OF_PRODUCTS_PER_PAGE, sort);
-        return pageSpecification;
-    }
-
-    private void buildFilter(ProductCriteriaDTO criteriaDTO) {
-        productRepository.findAll(where(hasTitle(criteriaDTO.getTitle()))
-                        .and(inCategory(criteriaDTO.getCategoryName()))
-                        .and(betweenDates(criteriaDTO.getReleaseDate(), criteriaDTO.getExpireDate())));
+    private Pageable createPageRequest(Integer pageIndex, Sort sort) {
+        return new PageRequest(Math.max(0, pageIndex - 1), NUMBER_OF_PRODUCTS_PER_PAGE, sort);
     }
 }

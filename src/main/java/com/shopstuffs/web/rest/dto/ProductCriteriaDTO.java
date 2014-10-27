@@ -57,11 +57,5 @@ public class ProductCriteriaDTO { public ProductCriteriaDTO(){}
         return expireDate;
     }
 
-    public void setExpireDate(DateTime expireDate) {
-        this.expireDate = expireDate;
-    }
-
-
-
-
+    public void setExpireDate(DateTime expireDate) {this.expireDate = expireDate;}
 }
