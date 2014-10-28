@@ -370,14 +370,17 @@ ul#strength {
 .product-nav>li.active>a,
 .product-nav>li.active>a:hover,
 .product-nav>li.active>a:focus {
-    color: #aaa;
+    color: #111;
     background-color: #f8f8f8;
 }
 
 .toolbar {
     padding: 1em;
 }
-
+.toolbar .pagination {
+    margin-top: 0;
+    margin-bottom: 0;
+}
 ol{
     list-style: disc;
     margin: 0 0 2em 2.5em;

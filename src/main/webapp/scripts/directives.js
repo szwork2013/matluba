@@ -340,4 +340,64 @@ angular.module('shopstuffsApp')
                 });
             }
         }
-    });
+    })
+    .directive('paginator', function(){
+        return {
+            require: 'ngModel',
+            restrict: 'E',
+            replace: true,
+            template: '<ul class="pagination"></ul>',
+            scope: {
+                pages: '='
+            },
+            link: function(scope, element, attr, ngModel) {
+
+                function update() {
+                    var pages = Math.max(0, scope.pages || 0);
+                    var index = Math.min(pages, Math.max(0, ngModel.$viewValue || 0));
+                    var hasNext = pages > index;
+                    var hasPrev = index != 1;
+                    var childBuilder = function (text, index) {
+                        return angular.element('<li><a href="#">' + text + '</a></li>').addClass('page-btn').data('page-index', index);
+                    }
+
+                    var display = element.css('display');
+                    element.empty().css('display', 'none');
+
+                    var ch;
+                    for (var i = 1; i < pages + 1; i++) {
+                        ch = childBuilder(i, i);
+                        if (i === index) ch.addClass('active');
+                        element.append(ch);
+                    }
+
+                    if (ch) {
+                        var prevChild = childBuilder('&laquo;', index - 1);
+                        if (!hasPrev)
+                            prevChild.addClass('disabled');
+                        element.prepend(prevChild);
+
+                        var nextChild = childBuilder('&raquo;', index + 1);
+                        if (!hasNext)
+                            nextChild.addClass('disabled');
+                        element.append(nextChild);
+                    }
+
+                    element.css('display', display);
+                }
+                scope.$watch('pages', function (oldValue, newValue) {
+                    update();
+                });
+                element.on('click', function (e) {
+                    var target = angular.element(e.target);
+                    target = !target.hasClass('page-btn') ? (target.parent().hasClass('page-btn') ? target.parent() : null) : target;
+
+                    if (target && !target.hasClass('disabled')) {
+                        ngModel.$setViewValue(target.data('page-index'));
+                        update();
+                    }
+                });
+            }
+        };
+    })
+

@@ -9,14 +9,14 @@ import java.util.List;
  * Created by jasurbek.umarov on 10/26/2014.
  */
 public class ProductResultDTO implements Serializable { public ProductResultDTO(){}
-    public List<Product> Products;
-    public Integer TotalPages;
-    public Integer PageIndex;
+    public List<Product> products;
+    public Integer pages;
+    public Integer index;
 
     public ProductResultDTO(List<Product>products, Integer totalPages, Integer pageIndex){
-        Products = products;
-        TotalPages = totalPages;
-        PageIndex = pageIndex;
+        this.products = products;
+        this.pages = totalPages;
+        this.index = pageIndex;
     }
 
 }
