@@ -180,7 +180,6 @@ public class ProductResource {
             specs.add(inCategory(criterias.getCategoryName()));
         }
 
-
         Specifications<Product> linkedSpecs = null;
         for (Specification<Product> productSpecification : specs) {
             if (linkedSpecs == null) {
@@ -191,15 +190,14 @@ public class ProductResource {
         }
 
 
+        Pageable pageable = createPageRequest(Integer.parseInt(page), ProductSort.defaultSort());
+        Page<Product> pages = linkedSpecs != null ? productRepository.findAll(linkedSpecs, pageable) : productRepository.findAll(pageable);
+
         ProductResultDTO result = null;
-        if (linkedSpecs != null){
-                Pageable pageable = createPageRequest(Integer.parseInt(page), ProductSort.defaultSort());
-                Page<Product> pages = productRepository.findAll(linkedSpecs, pageable);
-                if (pages != null) {
-                    result = new ProductResultDTO(pages.getContent(),
-                            pages.getTotalPages(),
-                            pages.getNumber() + 1);
-                }
+        if (pages != null) {
+            result = new ProductResultDTO(pages.getContent(),
+                    pages.getTotalPages(),
+                    pages.getNumber() + 1);
         }
 
         return Optional.ofNullable(result)

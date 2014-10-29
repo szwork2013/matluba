@@ -363,10 +363,6 @@ ul#strength {
     color: #666;
     font-weight: 700;
 }
-.products-list-wrapper {
-    background-color: #f9f9f9;
-    padding: 2rem 2em;
-}
 .product-nav>li.active>a,
 .product-nav>li.active>a:hover,
 .product-nav>li.active>a:focus {
@@ -376,11 +372,61 @@ ul#strength {
 
 .toolbar {
     padding: 1em;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: flex-start;
 }
-.toolbar .pagination {
+.product-search-toolbar {
+    padding-left: 0;
+}
+.advanced-search-container {
+    background-color: #f2f2f2;
+    margin-bottom: 10px;
+    position: relative;
+    border-radius: 3px;
+    box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+.advanced-search-container.collapse.in > .arrow {
+    position: absolute;
+    top: -5px;
+    z-index: 1;
+    display: block;
+    width: 10px;
+    height: 10px;
+    transform: rotate(45deg);
+    left: 1.5em;
+    background-color: #f2f2f2;
+    box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.1);
+
+}
+
+.toolbar-group {
+    flex: 0 0 auto;
+}
+.toolbar-group.search-group {
+    flex: 0.1 0 auto;
+}
+.toolbar-group.search-group .btn-link {
+   margin-right: 1em;
+}
+.toolbar-group.search-group .input-group {
+    max-width: 286px;
+}
+
+.toolbar-group.pagination-group {
+    flex: 1 0 auto;
+}
+.toolbar-group.pagination-group .pagination {
     margin-top: 0;
     margin-bottom: 0;
 }
+
+
+
+
 ol{
     list-style: disc;
     margin: 0 0 2em 2.5em;
@@ -390,15 +436,15 @@ ol li {
     margin-bottom: 0.75em;
 }
 
-
+.products-table thead {
+    background-color: #f1f1f1;
+}
 .products-table td {
+    vertical-align: baseline;
     font-size: 0.9em;
     border-top-color: #eee;
 }
 .products-table th {
-    font-size: 0.8em;
-    text-transform: uppercase;
-    color: #666;
     font-weight: 200;
 }
 .products-table .less-value {

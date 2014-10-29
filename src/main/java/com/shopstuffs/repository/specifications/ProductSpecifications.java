@@ -49,9 +49,16 @@ public class ProductSpecifications {
             public Predicate toPredicate(Root<Product> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
                 final Path<Category> category = root.get(Product_.category);
                 final Path<String> name = category.get(Category_.name);
-                return builder.equal(name, categName);
+                return builder.like(name, getLikePattern(categName));
 
             }
+
+               private String getLikePattern(final String searchTerm) {
+                   StringBuilder pattern = new StringBuilder();
+                   pattern.append(searchTerm.toLowerCase());
+                   pattern.append("%");
+                   return pattern.toString();
+               }
         };
   }
 
