@@ -30,7 +30,6 @@
             </div>
         </div><!-- End of Toolbar-->
     </div>
-
     <!-- Product list -->
     <div class="products-list-wrapper">
         <table class="table table-hover products-table">
@@ -47,7 +46,7 @@
             <tbody>
             <tr ng-repeat="product in products">
                 <th><input type="checkbox" /></th>
-                <td><a href="#">{{product.title}}</a></td>
+                <td><a ng-href="#/product/edit/{{product.id}}">{{product.title}}</a></td>
                 <td>{{product.productType}}</td>
                 <td>{{product.category.name}}</td>
                 <td><span class="super-value ">RM</span>{{product.price}}</td>

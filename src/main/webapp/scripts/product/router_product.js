@@ -9,11 +9,6 @@ shopstuffsApp
             .when('/product/edit/:productId?', {
                 templateUrl: 'views/product.html',
                 controller: 'AddProductCtrl',
-                resolve:{
-                    resolvedProduct: ['Product', '$routeParams', '$log', function (Product, $routeParams, $log) {
-                        return $routeParams.productId ? Product.get({ "id": $routeParams.productId }) : {};
-                    }]
-                },
                 access: {
                     authorizedRoles: [USER_ROLES.admin]
                 }

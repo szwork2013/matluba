@@ -4,8 +4,8 @@
 // JavaScript source code
 
 shopstuffsApp
-    .controller('AddProductCtrl', ['$scope', '$log', 'resolvedProduct', 'Product', 'Category', 'ProductTypes',
-        function($scope, $log, resolvedProduct, Product, Category, ProductTypes) {
+    .controller('AddProductCtrl', ['$scope', '$log', '$routeParams', 'Product', 'Category', 'ProductTypes',
+        function($scope, $log, $routeParams, Product, Category, ProductTypes) {
 
     $scope.templates = {
         'edit': 'views/partials/product-form.html',
@@ -14,7 +14,7 @@ shopstuffsApp
         'image': 'views/partials/product-images.html'
     };
 
-    $scope.product = !angular.equals(resolvedProduct, {}) ? resolvedProduct : new Product({images: [], attributes: [], id: null });
+    $scope.product = !angular.isDefined($routeParams.productId) ? Product.get({ "id": $routeParams.productId }) : new Product({images: [], attributes: [], id: null });
 
     $scope.types = ProductTypes.query();
 
