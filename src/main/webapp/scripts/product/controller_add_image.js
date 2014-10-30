@@ -8,6 +8,10 @@ shopstuffsApp.controller('AddImageController', ['$scope', 'FileUploader', functi
         $scope.product.images.push(image);
     };
 
+    $scope.backProductView = function () {
+        $scope.view= $scope.templates.read;
+    };
+
     var uploader = $scope.uploader = new FileUploader({
         headers: {Authorization: httpHeaders.common['Authorization']},
         url: '/app/rest/images/upload'

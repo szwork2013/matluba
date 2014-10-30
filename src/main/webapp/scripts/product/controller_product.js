@@ -116,6 +116,10 @@ shopstuffsApp
         $scope.view = $scope.templates.edit;
     };
 
+     $scope.imageView = function () {
+        $scope.view = $scope.templates.image;
+    };
+
     $scope.cancel = function () {
         $scope.product = null;
         // must redirect to previous page.
