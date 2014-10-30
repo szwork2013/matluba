@@ -14,7 +14,18 @@ shopstuffsApp
         'image': 'views/partials/product-images.html'
     };
 
-    $scope.product = !angular.isDefined($routeParams.productId) ? Product.get({ "id": $routeParams.productId }) : new Product({images: [], attributes: [], id: null });
+    if (angular.isDefined($routeParams.productId)) {
+        $scope.view = $scope.templates.read;
+        $scope.product = Product.get({ "id": $routeParams.productId });
+        $scope.product.$promise.then(function () {
+            $scope.attribute_view = $scope.templates.attribute;
+        });
+    } else {
+        $scope.view = $scope.templates.edit;
+        $scope.attribute_view = '';
+        $scope.product = new Product({images: [], attributes: [], id: null });
+    }
+
 
     $scope.types = ProductTypes.query();
 
@@ -24,7 +35,7 @@ shopstuffsApp
 
     $scope.useTime = true;
 
-    $scope.attribute_view = !$scope.product.id ? '' : $scope.templates.attribute;
+
 
     $scope.productForm = {};
 
@@ -97,7 +108,6 @@ shopstuffsApp
 
     $scope.save = function () {
         if($scope.formValidator.validate($scope.product)){
-            console.log($scope.productForm);
             $scope.product.$save(function(response){
                 $scope.success = 'Product created successfully';
                 $scope.error = null;
@@ -106,21 +116,18 @@ shopstuffsApp
             }, function(error){
                 $scope.saveStatus = null;
                 $log.info(error);
-                $scope.error = "ServerSide Unknown Error";
+                $scope.error = "Unknown Error";
             });
         }
     };
 
     $scope.edit = function () {
-        $scope.saveStatus = null;
+        $scope.error = $scope.saveStatus = null;
         $scope.view = $scope.templates.edit;
     };
 
     $scope.cancel = function () {
+     // must redirect to previous page.
         $scope.product = null;
-        // must redirect to previous page.
     };
-
-    $scope.edit();
-
 }]);
