@@ -14,18 +14,21 @@ shopstuffsApp
         'image': 'views/partials/product-images.html'
     };
 
+     $scope.productForm = {};
+     $scope.master = {};
+
     if (angular.isDefined($routeParams.productId)) {
-        $scope.view = $scope.templates.read;
         $scope.product = Product.get({ "id": $routeParams.productId });
         $scope.product.$promise.then(function () {
-            $scope.attribute_view = $scope.templates.attribute;
+          $scope.read();
         });
     } else {
-        $scope.view = $scope.templates.edit;
-        $scope.attribute_view = '';
         $scope.product = new Product({images: [], attributes: [], id: null });
+        $scope.edit();
     }
 
+
+    $scope.alerts = {};
 
     $scope.types = ProductTypes.query();
 
@@ -35,9 +38,6 @@ shopstuffsApp
 
     $scope.useTime = true;
 
-
-
-    $scope.productForm = {};
 
      var validations = {
 
@@ -107,27 +107,33 @@ shopstuffsApp
      }, $scope.productForm);
 
     $scope.save = function () {
-        if($scope.formValidator.validate($scope.product)){
+        if($scope.formValidator.validate($scope.master)){
+            angular.extend($scope.product, $scope.master);
             $scope.product.$save(function(response){
-                $scope.success = 'Product created successfully';
-                $scope.error = null;
-                $scope.view =  $scope.templates.read;
-                $scope.attribute_view = $scope.templates.attribute;
+                $scope.alerts = { success: 'Product created successfully' };
+                $scope.read();
             }, function(error){
-                $scope.saveStatus = null;
                 $log.info(error);
-                $scope.error = "Unknown Error";
+                $scope.alerts = { error: 'Unknown Error' };
             });
         }
     };
 
     $scope.edit = function () {
-        $scope.error = $scope.saveStatus = null;
+        // clean errors and success alerts
+        $scope.alerts = {};
+        $scope.master = angular.copy($scope.product);
         $scope.view = $scope.templates.edit;
     };
 
+    $scope.read = function () {
+        $scope.view =  $scope.templates.read;
+        if (angular.isDefined($scope.product.id))
+         $scope.attribute_view = $scope.templates.attribute;
+    };
+
     $scope.cancel = function () {
-     // must redirect to previous page.
-        $scope.product = null;
+        $scope.master = angular.copy($scope.product);
+        $scope.read();
     };
 }]);
