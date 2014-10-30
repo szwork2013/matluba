@@ -10,11 +10,11 @@ shopstuffsApp.controller('ProductsCtrl', function ($scope,  Product) {
     }
 
     $scope.update = function() {
-        console.log("update", Date.now());
         var searchModel = angular.extend({}, $scope.search);
-        Product.search({ page: $scope.page.index || 1 }, searchModel).$promise.then(function(response){
-            $scope.products = response.products || [];
-            $scope.page.total = response.pages;
+        Product.search({ page: $scope.page.index || 1 }, searchModel)
+            .$promise.then(function(response){
+                $scope.products = response.products || [];
+                $scope.page.total = response.pages;
         });
     };
     $scope.$watchCollection('search', observer);

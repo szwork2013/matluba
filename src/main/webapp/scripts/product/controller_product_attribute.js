@@ -28,16 +28,15 @@ shopstuffsApp.controller('AddAttributeCtrl',
 
         $scope.addAttribute = function () {
             var option = $scope.selectedOption;
-            if (option ) {
-                $scope.product.attributes.push(option);
-                $scope.updateAttributeList();
-                return;
+            if ( option ) {
+                var exist = _.findWhere($scope.product.attributes, { 'id': option.id });
                 if (!exist) {
                     Product.addAttribute({ productId: $scope.product.id, attributeId: option.id})
-                .$promise.then(function () {
-                    });
+                        .$promise.then(function () {
+                            $scope.product.attributes.push(option);
+                            $scope.updateAttributeList();
+                        });
                 }
-                var exist = _.findWhere($scope.product.attributes, {'id': option.id});
             }
         };
 
