@@ -14,7 +14,21 @@ shopstuffsApp
         'image': 'views/partials/product-images.html'
     };
 
-    $scope.product = !angular.isDefined($routeParams.productId) ? Product.get({ "id": $routeParams.productId }) : new Product({images: [], attributes: [], id: null });
+     $scope.productForm = {};
+     $scope.master = {};
+
+    if (angular.isDefined($routeParams.productId)) {
+        $scope.product = Product.get({ "id": $routeParams.productId });
+        $scope.product.$promise.then(function () {
+          $scope.read();
+        });
+    } else {
+        $scope.product = new Product({images: [], attributes: [], id: null });
+        $scope.edit();
+    }
+
+
+    $scope.alerts = {};
 
     $scope.types = ProductTypes.query();
 
@@ -24,9 +38,6 @@ shopstuffsApp
 
     $scope.useTime = true;
 
-    $scope.attribute_view = !$scope.product.id ? '' : $scope.templates.attribute;
-
-    $scope.productForm = {};
 
      var validations = {
 
@@ -96,35 +107,36 @@ shopstuffsApp
      }, $scope.productForm);
 
     $scope.save = function () {
-        if($scope.formValidator.validate($scope.product)){
-            console.log($scope.productForm);
+        if($scope.formValidator.validate($scope.master)){
+            angular.extend($scope.product, $scope.master);
             $scope.product.$save(function(response){
-                $scope.success = 'Product created successfully';
-                $scope.error = null;
-                $scope.view =  $scope.templates.read;
-                $scope.attribute_view = $scope.templates.attribute;
+                $scope.alerts = { success: 'Product created successfully' };
+                $scope.read();
             }, function(error){
-                $scope.saveStatus = null;
                 $log.info(error);
-                $scope.error = "ServerSide Unknown Error";
+                $scope.alerts = { error: 'Unknown Error' };
             });
         }
     };
 
     $scope.edit = function () {
-        $scope.saveStatus = null;
+        // clean errors and success alerts
+        $scope.alerts = {};
+        $scope.master = angular.copy($scope.product);
         $scope.view = $scope.templates.edit;
     };
 
      $scope.imageView = function () {
-        $scope.view = $scope.templates.image;
-    };
-
+           $scope.view = $scope.templates.image;
+     };
+            
     $scope.cancel = function () {
         $scope.product = null;
         // must redirect to previous page.
     };
 
-    $scope.edit();
-
+    $scope.cancel = function () {
+        $scope.master = angular.copy($scope.product);
+        $scope.read();
+    };
 }]);

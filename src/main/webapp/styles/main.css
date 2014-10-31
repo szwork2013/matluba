@@ -299,7 +299,7 @@ ul#strength {
     padding: 8px 12px;
     border: 1px dashed;
     border-color:  #ddd;
-    background-color: #f3f3f3;
+    background-color: #f6f6f6;
     color: #666;
     text-align: center;
     cursor: pointer;
@@ -424,9 +424,6 @@ ul#strength {
     margin-bottom: 0;
 }
 
-
-
-
 ol{
     list-style: disc;
     margin: 0 0 2em 2.5em;
@@ -471,4 +468,6 @@ ol li {
     border-bottom: 2px solid #eee;
 }
 
-
+.btn-sized {
+    min-width: 78px;
+}
