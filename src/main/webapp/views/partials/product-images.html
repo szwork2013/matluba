@@ -25,9 +25,23 @@
         height: 100px;
         margin: 6px 0 0 6px;
     }
+    .shorten{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 100%;
+    }
 </style>
 <div ng-controller="AddImageController" nv-file-drop="" uploader="uploader">
+    <br/>
     <a href="javascript:void(0)" ng-click="backProductView()"> <<- Product View</a>
+    <br/>
+
+     <div ng-repeat="img in images">
+         <img ng-src="{{img.thumbnailImagePath}}" />
+     </div>
+
     <input type="file" nv-file-select="" uploader="uploader" multiple/><br/>
 
     <div class="col-md-9" style="margin-bottom: 40px">
@@ -45,7 +59,7 @@
             <tbody>
             <tr ng-repeat="item in uploader.queue">
                 <td>
-                    <strong>{{ item.file.name }}</strong>
+                    <strong class="shorten">{{ item.file.name }}</strong>
                     <!-- Image preview -->
                     <!--auto height-->
                     <!--<div ng-thumb="{ file: item.file, width: 100 }"></div>-->
@@ -82,4 +96,6 @@
     </div>
 
 </div>
+
+
 

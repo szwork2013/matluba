@@ -3,9 +3,10 @@
  */
 
 
-shopstuffsApp.controller('AddImageController', ['$scope', 'FileUploader', function ($scope, FileUploader) {
+shopstuffsApp.controller('AddImageController', ['$scope', 'FileUploader','Image', function ($scope, FileUploader,Image) {
+    $scope.images = Image.query({productId: $scope.product.id});
     $scope.addImage = function (image) {
-        $scope.product.images.push(image);
+        $scope.images.push(image);
     };
 
     $scope.backProductView = function () {
@@ -14,8 +15,11 @@ shopstuffsApp.controller('AddImageController', ['$scope', 'FileUploader', functi
 
     var uploader = $scope.uploader = new FileUploader({
         headers: {Authorization: httpHeaders.common['Authorization']},
-        url: '/app/rest/images/upload'
+        data: {productId: $scope.product.id},
+        url: '/app/rest/images/upload?productId='+$scope.product.id
     });
+
+
 
     // FILTERS
 
@@ -48,6 +52,7 @@ shopstuffsApp.controller('AddImageController', ['$scope', 'FileUploader', functi
         console.info('onProgressAll', progress);
     };
     uploader.onSuccessItem = function (fileItem, response, status, headers) {
+        $scope.addImage(response);
         console.info('onSuccessItem', fileItem, response, status, headers);
     };
     uploader.onErrorItem = function (fileItem, response, status, headers) {

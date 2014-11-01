@@ -20,11 +20,13 @@ shopstuffsApp
     if (angular.isDefined($routeParams.productId)) {
         $scope.product = Product.get({ "id": $routeParams.productId });
         $scope.product.$promise.then(function () {
-          $scope.read();
+            $scope.view=$scope.templates.read;
         });
     } else {
         $scope.product = new Product({images: [], attributes: [], id: null });
-        $scope.edit();
+        $scope.alerts = {};
+               $scope.master = angular.copy($scope.product);
+               $scope.view = $scope.templates.edit;
     }
 
 
@@ -111,7 +113,7 @@ shopstuffsApp
             angular.extend($scope.product, $scope.master);
             $scope.product.$save(function(response){
                 $scope.alerts = { success: 'Product created successfully' };
-                $scope.read();
+                $scope.view=$scope.templates.read;
             }, function(error){
                 $log.info(error);
                 $scope.alerts = { error: 'Unknown Error' };
@@ -137,6 +139,6 @@ shopstuffsApp
 
     $scope.cancel = function () {
         $scope.master = angular.copy($scope.product);
-        $scope.read();
+        $scope.view=$scope.templates.read;
     };
 }]);

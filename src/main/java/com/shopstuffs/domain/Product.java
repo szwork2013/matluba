@@ -45,14 +45,11 @@ public class Product extends AbstractAuditingEntity implements Serializable {
     @DecimalMin(value = "1.00")
     private BigDecimal price;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Attribute> attributes = new ArrayList<>();
 
     @Column(name = "rental_price")
     private BigDecimal rentalPrice;
-
-    @OneToMany
-    private List<Image> images = new ArrayList<>();
 
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @Column(name = "release_date")
@@ -149,14 +146,6 @@ public class Product extends AbstractAuditingEntity implements Serializable {
         this.rentalPrice = rentalPrice;
     }
 
-    public Collection<Image> getImages() {
-        return images;
-    }
-
-    public void setImages(List<Image> images) {
-        this.images = images;
-    }
-
     @Override
     public int hashCode() {
         return (int) (id ^ (id >>> 32));
@@ -195,9 +184,7 @@ public class Product extends AbstractAuditingEntity implements Serializable {
                 ", productType='" + productType + '\'' +
                 ", oldPrice=" + oldPrice +
                 ", price=" + price +
-                ", attributes=" + attributes +
                 ", rentalPrice=" + rentalPrice +
-                ", images=" + images +
                 '}';
     }
 }
