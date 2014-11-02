@@ -400,4 +400,45 @@ angular.module('shopstuffsApp')
             }
         };
     })
+    .directive('imagepopover', function(){
+        return {
+            restrict: 'A',
+            scope: {
+                imageResolver: '&',
+                hoveredModel: '='
+            },
+            link: function($scope, element, attr){
+                function getInnerTemplate() {
+                    $scope.lastGenId = 'impp_' + Date.now();
+                    return '<img id="'+ $scope.lastGenId +'" src="images/preloader.gif" width="128" height="128"/>';
+                }
+
+                function helper(imageId) {
+                    return function(imgSrc) {
+                        var $img = $("#" + imageId);
+                        if($img.length) {
+                            $img.attr('src', imgSrc);
+                        }
+                    }
+                }
+
+                $(element).on('mouseover', "[data-image]", function(e) {
+                    var $target = $(e.target);
+                    var data = $target.data('image');
+                    if (data) {
+                        $scope.hoveredModel = data;
+                        $target.popover({ trigger:'manual', html: true, content: getInnerTemplate() });
+                        $target.popover('show');
+                        $scope.imageResolver()
+                            .then(helper($scope.lastGenId));
+                    }
+                }).on('mouseout', "[data-image]", function(e){
+                    var $target = $(e.target);
+                    if ($target['popover']) {
+                        $target.popover('destroy');
+                    }
+                });
+            }
+        }
+    });
 

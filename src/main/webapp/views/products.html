@@ -43,10 +43,12 @@
                 <th>Rental Price</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody imagepopover image-resolver="getUrl()" hovered-model="hoveredProductId">
             <tr ng-repeat="product in products">
                 <th><input type="checkbox" /></th>
-                <td><a ng-href="#/product/edit/{{product.id}}">{{product.title}}</a></td>
+                <td><a ng-href="#/product/edit/{{product.id}}"
+                       data-image="product.id"
+                        >{{product.title}}</a></td>
                 <td>{{product.productType}}</td>
                 <td>{{product.category.name}}</td>
                 <td><span class="super-value ">RM</span>{{product.price}}</td>

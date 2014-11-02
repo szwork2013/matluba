@@ -17,17 +17,6 @@ shopstuffsApp
      $scope.productForm = {};
      $scope.master = {};
 
-    if (angular.isDefined($routeParams.productId)) {
-        $scope.product = Product.get({ "id": $routeParams.productId });
-        $scope.product.$promise.then(function () {
-            $scope.view=$scope.templates.read;
-        });
-    } else {
-        $scope.product = new Product({images: [], attributes: [], id: null });
-        $scope.alerts = {};
-               $scope.master = angular.copy($scope.product);
-               $scope.view = $scope.templates.edit;
-    }
 
 
     $scope.alerts = {};
@@ -41,62 +30,61 @@ shopstuffsApp
     $scope.useTime = true;
 
 
-     var validations = {
+    var validations = {
+         _buildResult: function (valid, message) {
+             return {
+                 'valid': !!valid,
+                 error: valid ? null : message
+             };
+         },
 
-                _buildResult: function (valid, message) {
-                    return {
-                        'valid': !! valid,
-                        error: valid ? null : message
-                    };
-                },
+         decimal: function (message, optional) {
+             var self = this;
+             return function (value) {
+                 return self._buildResult(!value ? optional : /^[0-9]+(\.[0-9]+)?$/.test(value), message);
+             };
+         },
 
-                decimal: function (message, optional) {
-                    var self = this;
-                    return function (value) {
-                        return self._buildResult(!value  ? optional : /^[0-9]+(\.[0-9]+)?$/.test(value), message);
-                    };
-                },
+         required: function (message) {
+             var self = this;
+             return function (value) {
+                 return self._buildResult(value, message);
+             };
+         },
 
-                required: function (message) {
-                    var self = this;
-                    return function (value) {
-                        return self._buildResult(value, message);
-                    };
-                },
+         pipe: function () {
+             var self = this,
+                 args = arguments;
+             return function (value) {
+                 for (var i in args) {
+                     var result = args[i](value);
+                     if (!result.valid) {
+                         return result;
+                     }
+                 }
+                 return self._buildResult(true);
+             };
+         },
 
-                pipe: function () {
-                    var self = this,
-                        args = arguments;
-                    return function (value) {
-                        for (var i in args) {
-                            var result = args[i](value);
-                            if (!result.valid) {
-                                return result;
-                            }
-                        }
-                        return self._buildResult(true);
-                    };
-                },
-
-                instance: function (validation, resultBag) {
-                    return {
-                        validate: function (model) {
-                            var invalidCount = 0;
-                            resultBag = resultBag || {};
-                            for (var prop in validation) {
-                                if (validation.hasOwnProperty(prop)) {
-                                    var value = model[prop];
-                                    resultBag[prop] = validation[prop](value);
-                                    if (!resultBag[prop].valid) {
-                                      invalidCount++;
-                                    }
-                                }
-                            }
-                            return !invalidCount;
-                        }
-                    };
-                }
-            };
+         instance: function (validation, resultBag) {
+             return {
+                 validate: function (model) {
+                     var invalidCount = 0;
+                     resultBag = resultBag || {};
+                     for (var prop in validation) {
+                         if (validation.hasOwnProperty(prop)) {
+                             var value = model[prop];
+                             resultBag[prop] = validation[prop](value);
+                             if (!resultBag[prop].valid) {
+                                 invalidCount++;
+                             }
+                         }
+                     }
+                     return !invalidCount;
+                 }
+             };
+         }
+     };
      $scope.formValidator = validations.instance({
          'price': validations.pipe(validations.required("Required Field"), validations.decimal("Decimal required")),
          'title': validations.required("Required Field"),
@@ -113,7 +101,7 @@ shopstuffsApp
             angular.extend($scope.product, $scope.master);
             $scope.product.$save(function(response){
                 $scope.alerts = { success: 'Product created successfully' };
-                $scope.view=$scope.templates.read;
+                $scope.read();
             }, function(error){
                 $log.info(error);
                 $scope.alerts = { error: 'Unknown Error' };
@@ -128,17 +116,29 @@ shopstuffsApp
         $scope.view = $scope.templates.edit;
     };
 
-     $scope.imageView = function () {
-           $scope.view = $scope.templates.image;
-     };
-            
-    $scope.cancel = function () {
-        $scope.product = null;
-        // must redirect to previous page.
+    $scope.read = function () {
+        $scope.view =  $scope.templates.read;
+        if (angular.isDefined($scope.product.id))
+         $scope.attribute_view = $scope.templates.attribute;
     };
 
     $scope.cancel = function () {
-        $scope.master = angular.copy($scope.product);
-        $scope.view=$scope.templates.read;
+        angular.copy($scope.product, $scope.master);
+        $scope.read();
     };
-}]);
+
+            $scope.imageView = function () {
+                $scope.view = $scope.templates.image;
+            };
+
+            if (angular.isDefined($routeParams.productId)) {
+                $scope.product = Product.get({ "id": $routeParams.productId });
+                $scope.product.$promise.then(function () {
+                    $scope.read();
+                });
+            } else {
+                $scope.product = new Product({ attributes: []});
+                $scope.edit();
+            }
+
+        }]);
