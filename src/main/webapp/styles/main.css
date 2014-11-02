@@ -478,3 +478,12 @@ img[src='images/preloader2.gif'] {
     display: block;
     position: absolute;
 }
+
+.control-label {
+    font-weight: 300;
+    color: #777;
+}
+
+.panel-heading {
+   padding: 6px 15px;
+}
