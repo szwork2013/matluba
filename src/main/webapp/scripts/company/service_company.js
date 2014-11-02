@@ -1,8 +1,8 @@
 'use strict';
 
 shopstuffsApp.factory('Company', function ($resource) {
-        return $resource('app/rest/companys/:id', {}, {
-            'query': { method: 'GET', isArray: true},
-            'get': { method: 'GET'}
+        return $resource('app/rest/company', {}, {
+            'get': { method: 'GET'},
+            'save': { method: 'POST'}
         });
     });

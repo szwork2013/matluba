@@ -48,6 +48,8 @@ public class CategoryResource {
     public List<Category> getAll() {
         log.debug("REST request to get all Categorys");
         return categoryRepository.findAll();
+
+
     }
 
     /**
