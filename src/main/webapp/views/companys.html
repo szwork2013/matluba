@@ -1,0 +1,139 @@
+<div>
+
+    <h2>Companys</h2>
+
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#saveCompanyModal" ng-click="clear()">
+        <span class="glyphicon glyphicon-flash"></span> Create a new Company
+    </button>
+    <div class="modal fade" id="saveCompanyModal" tabindex="-1" role="dialog" aria-labelledby="myCompanyLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="form" role="form" novalidate
+                      class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
+                      ng-submit="create()">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" id="myCompanyLabel">Create or edit a Company</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>ID</label>
+                            <input type="text" class="form-control" name="id"
+                                   ng-model="company.id" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label>name</label>
+                            <input type="text" class="form-control" name="test"
+                                   ng-model="company.name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>description</label>
+                            <input type="text" class="form-control" name="test"
+                                   ng-model="company.description" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>phone</label>
+                            <input type="text" class="form-control" name="test"
+                                   ng-model="company.phone" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>email</label>
+                            <input type="email" class="form-control" name="test"
+                                   ng-model="company.email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>address</label>
+                            <input type="email" class="form-control" name="test"
+                                   ng-model="company.address" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>owner</label>
+                            <input type="email" class="form-control" name="test"
+                                   ng-model="company.owner" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>facebook</label>
+                            <input type="email" class="form-control" name="test"
+                                   ng-model="company.facebook" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>twitter</label>
+                            <input type="email" class="form-control" name="test"
+                                   ng-model="company.twitter" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>google</label>
+                            <input type="email" class="form-control" name="test"
+                                   ng-model="company.google" required>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                        </button>
+                        <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-save"></span> Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <td>name</td>
+                <td>email</td>
+                <td>phone</td>
+                <td>address</td>
+                <td>description</td>
+                <td>facebook</td>
+                <td>twitter</td>
+                <td>google</td>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="company in companys">
+                <td>{{company.id}}</td>
+                <td>{{company.name}}</td>
+                <td>{{company.email}}</td>
+                <td>{{company.phone}}</td>
+                <td>{{company.address}}</td>
+                <td>{{company.description}}</td>
+                <td>{{company.facebook}}</td>
+                <td>{{company.twitter}}</td>
+                <td>{{company.google}}</td>
+                <td>
+                    <button type="submit"
+                            ng-click="update(company.id)"
+                            class="btn">
+                        <span class="glyphicon glyphicon-pencil"></span> Edit
+                    </button>
+                    <button type="submit"
+                            ng-click="delete(company.id)"
+                            class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove-circle"></span> Delete
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
