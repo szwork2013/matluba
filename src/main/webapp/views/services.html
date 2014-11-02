@@ -1,85 +1,76 @@
-<div>
+<div ng-controller="ServiceController">
 
-    <h2>Services</h2>
-
-    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#saveServiceModal" ng-click="clear()">
-        <span class="glyphicon glyphicon-flash"></span> Create a new Service
-    </button>
-    <div class="modal fade" id="saveServiceModal" tabindex="-1" role="dialog" aria-labelledby="myServiceLabel"
-         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form name="form" role="form" novalidate
-                      class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
-                      ng-submit="create()">
-
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                                ng-click="clear()">&times;</button>
-                        <h4 class="modal-title" id="myServiceLabel">Create or edit a Service</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label>ID</label>
-                            <input type="text" class="form-control" name="id"
-                                   ng-model="service.id" readonly>
-                        </div>
-
-                        <div class="form-group">
-                            <label>name</label>
-                            <input type="text" class="form-control" name="test"
-                                   ng-model="service.name" ng-minlength=1 required>
-                        </div>
-                        <div class="form-group">
-                            <label>description</label>
-                            <textarea   class="form-control" name="test"
-                                   ng-model="service.description" ng-minlength=1 required></textarea>
-                        </div>
-
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
-                            <span class="glyphicon glyphicon-ban-circle"></span> Cancel
-                        </button>
-                        <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">
-                            <span class="glyphicon glyphicon-save"></span> Save
-                        </button>
-                    </div>
-                </form>
+        <div class="toolbar space-justify">
+            <div class="toolbar-group">
+                <button class="btn btn-default btn-xs btn-static" data-toggle="modal" data-target="#saveServiceModal" ng-click="clear()">New Service</button>
             </div>
         </div>
-    </div>
 
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>name</th>
-                    <th>description</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="service in services">
-                    <td>{{service.id}}</td>
-                    <td>{{service.name}}</td>
-                    <td>{{service.description}}</td>
-                    <td>
-                        <button type="submit"
-                                ng-click="update(service.id)"
-                                class="btn">
-                            <span class="glyphicon glyphicon-pencil"></span> Edit
-                        </button>
-                        <button type="submit"
-                                ng-click="delete(service.id)"
-                                class="btn btn-danger">
-                            <span class="glyphicon glyphicon-remove-circle"></span> Delete
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+        <div class="modal fade" id="saveServiceModal" tabindex="-1" role="dialog" aria-labelledby="myServiceLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form name="form" role="form" novalidate
+                          class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
+                          ng-submit="create()">
+
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                    ng-click="clear()">&times;</button>
+                            <h4 class="modal-title" id="myServiceLabel">Create or edit a Service</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" class="form-control" name="test"
+                                       ng-model="service.name" ng-minlength=1 required>
+                            </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea   class="form-control" name="test"
+                                       ng-model="service.description" ng-minlength=1 required></textarea>
+                            </div>
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-sm btn-sized btn-default" data-dismiss="modal" ng-click="clear()">Cancel</button>
+                            <button type="submit" ng-disabled="form.$invalid" class="btn btn-sm btn-sized btn-primary">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+                <table class="table products-table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="service in services">
+                        <td>{{service.id}}</td>
+                        <td>{{service.name}}</td>
+                        <td>{{service.description}}</td>
+                        <td>
+                            <button type="submit"
+                                    ng-click="update(service.id)"
+                                    class="btn btn-default btn-xs">
+                                Edit
+                            </button>
+                            <button type="submit"
+                                    ng-click="delete(service.id)"
+                                    class="btn btn-xs btn-danger">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
 </div>

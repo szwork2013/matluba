@@ -1,8 +1,8 @@
 'use strict';
 
-shopstuffsApp.controller('ServiceController', function ($scope, resolvedService, Service) {
+shopstuffsApp.controller('ServiceController', function ($scope, Service) {
 
-        $scope.services = resolvedService;
+        $scope.services = Service.query();
 
         $scope.create = function () {
             Service.save($scope.service,

@@ -37,17 +37,12 @@
                         <li>
                             <a href="#">
                                 <span class="glyphicon glyphicon-home"></span>
-                                <span translate="global.menu.home">Home</span>
                             </a>
                         </li>
                         <li class="dropdown pointer">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
                                 <span>
                                     <span class="glyphicon glyphicon-user"></span>
-                                    <span class="hidden-tablet" translate="global.menu.account.main">
-                                        Account
-                                    </span>
-                                    <b class="caret"></b>
                                 </span>
                             </a>
                             <ul class="dropdown-menu" ng-controller="MenuController">
@@ -69,9 +64,7 @@
                         <li ng-switch-when="true" ng-show="isAuthorized(userRoles.admin)" class="dropdown pointer" ng-controller="AdminController">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
                                 <span>
-                                    <span class="glyphicon glyphicon-tower"></span>
-                                    <span class="hidden-tablet" translate="global.menu.admin">Admin</span>
-                                    <b class="caret"></b>
+                                    <span class="glyphicon glyphicon-cog"></span>
                                 </span>
                             </a>
                             <ul class="dropdown-menu">
@@ -88,7 +81,6 @@
                         <li class="dropdown pointer" ng-controller="LanguageController">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
                                 <span>
-                                    <span class="glyphicon glyphicon-flag"></span>
                                     <span class="hidden-tablet" translate="global.menu.language">Language</span>
                                     <b class="caret"></b>
                                 </span>
