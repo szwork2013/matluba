@@ -360,7 +360,7 @@ ul#strength {
 }
 .product-nav a {
     font-size: 12px;
-    color: #666;
+    color: #777;
     font-weight: 700;
 }
 .product-nav>li.active>a,
@@ -470,4 +470,11 @@ ol li {
 
 .btn-sized {
     min-width: 78px;
+}
+
+img[src='images/preloader2.gif'] {
+    top: 57px;
+    left: 62px;
+    display: block;
+    position: absolute;
 }

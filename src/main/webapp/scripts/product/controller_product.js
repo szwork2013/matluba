@@ -97,10 +97,12 @@ shopstuffsApp
      }, $scope.productForm);
 
     $scope.save = function () {
-        if($scope.formValidator.validate($scope.master)){
+        if(!$scope.disable && $scope.formValidator.validate($scope.master)){
             angular.extend($scope.product, $scope.master);
+            $scope.disable = true;
             $scope.product.$save(function(response){
-                $scope.alerts = { success: 'Product created successfully' };
+                $scope.disable = false;
+                $scope.alerts = { success: $scope.product.title + ' was created successfully' };
                 $scope.read();
             }, function(error){
                 $log.info(error);

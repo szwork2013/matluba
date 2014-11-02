@@ -1,6 +1,6 @@
 'use strict';
 
-shopstuffsApp.controller('ProductsCtrl', function ($scope,  Product, Image) {
+shopstuffsApp.controller('ProductsCtrl', function ($scope,  Product, Image, $q) {
     $scope.page = {index: 1, page: 1};
     $scope.products = [];
     $scope.search = {};
@@ -18,8 +18,16 @@ shopstuffsApp.controller('ProductsCtrl', function ($scope,  Product, Image) {
         });
     };
 
-    $scope.getImgUrl = function() {
-        return Image.query({ productId: $scope.hoveredProductId}).$promise;
+    $scope.hoveredProduct = {};
+    $scope.getImgUrl = function(id) {
+        var noImage = 'images/no-image.png';
+        var deferred = $q.defer();
+        Image.query({ productId: id }).$promise.then(function(images){
+            deferred.resolve(images && images.length ? images[0].thumbnailImagePath : 'images/no-image.png');
+        }, function(){
+            deferred.reject('unknown error');
+        });
+        return deferred.promise;
     }
 
     $scope.$watchCollection('search', observer);

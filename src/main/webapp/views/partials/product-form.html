@@ -81,6 +81,6 @@
         </div>
     </div>
 
-    <button class="btn btn-sm btn-sized btn-success" ng-click="save()">Save</button>
-    <button class="btn btn-sm btn-sized btn-default" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-sm btn-sized btn-success" ng-click="save()" ng-disabled="{{disabled}}">{{disabled ? "Saving" : "Save"}}</button>
+    <button class="btn btn-sm btn-sized btn-default" ng-click="cancel()" ng-disabled="{{disabled}}">Cancel</button>
 </div>

@@ -89,7 +89,7 @@ public class ImageResource {
         if (!multipartFile.isEmpty()) {
             final String name = multipartFile.getOriginalFilename();
             try {
-                final String baseUrl = "D:\\Project\\matluba\\src\\main\\webapp\\images\\uploaded\\";
+                final String baseUrl = "D:\\projects\\shopstuffs_with_jhipster\\matluba\\src\\main\\webapp\\images\\uploaded\\";
                 final File file = new File(baseUrl + name);
                 multipartFile.transferTo(file);
                 String thumbPath = createThumbnail(baseUrl,file);
