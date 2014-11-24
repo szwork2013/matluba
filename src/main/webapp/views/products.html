@@ -1,41 +1,44 @@
 <div ng-controller="ProductsCtrl">
     <!-- Product action toolbar -->
     <div class="toolbar product-search-toolbar">
-            <div class="toolbar-group search-group">
-                <div class="input-group input-group-sm pull-left">
+        <div class="toolbar-group search-group">
+            <div class="input-group input-group-sm pull-left">
                     <span class="input-group-addon">
                         <span class="btn-link" data-toggle="collapse" data-target="#advancedProductSearch">More </span>
                         <i class="glyphicon glyphicon-search"></i>
                     </span>
-                    <input type="text" class="form-control" placeholder="Product Title" ng-model="search.title">
-                </div>
+                <input type="text" class="form-control" placeholder="Product Title" ng-model="search.title">
+            </div>
 
-            </div>
-            <div class="toolbar-group">
-                <div class="btn-toolbar">
-                    <div class="btn-group btn-group-sm">
-                        <a href="#/product/edit" class="btn btn-default">New Product</a>
-                    </div>
+        </div>
+        <div class="toolbar-group">
+            <div class="btn-toolbar">
+                <div class="btn-group btn-group-sm">
+                    <a href="#/product/edit" class="btn btn-default">New Product</a>
                 </div>
             </div>
-            <div class="toolbar-group pagination-group">
-                <paginator ng-model='page.index' pages='page.total' class="pagination-sm pull-right"></paginator>
-            </div>
-    </div><!-- End of Toolbar-->
+        </div>
+        <div class="toolbar-group pagination-group">
+            <paginator ng-model='page.index' pages='page.total' class="pagination-sm pull-right"></paginator>
+        </div>
+    </div>
+    <!-- End of Toolbar-->
     <div id="advancedProductSearch" class="advanced-search-container collapse">
         <span class="arrow"></span>
+
         <div class="toolbar">
             <div class="toolbar-group">
                 <input type="text" class="form-control input-sm" placeholder="Category" ng-model="search.categoryName">
             </div>
-        </div><!-- End of Toolbar-->
+        </div>
+        <!-- End of Toolbar-->
     </div>
     <!-- Product list -->
     <div class="products-list-wrapper">
         <table class="table table-hover products-table">
             <thead>
             <tr>
-                <th><input type="checkbox" /></th>
+                <th><input type="checkbox"/></th>
                 <th>Product Name</th>
                 <th>Product Type</th>
                 <th>Category</th>
@@ -45,7 +48,7 @@
             </thead>
             <tbody imagepopover image-resolver="getImgUrl(model)">
             <tr ng-repeat="product in products">
-                <th><input type="checkbox" /></th>
+                <th><input type="checkbox"/></th>
                 <td><a ng-href="#/product/edit/{{product.id}}"
                        data-image="{{product.id}}"
                         >{{product.title}}</a></td>
@@ -53,6 +56,13 @@
                 <td>{{product.category.name}}</td>
                 <td><span class="super-value ">RM</span>{{product.price}}</td>
                 <td><span class="less-value">None</span></td>
+                <td>
+
+                    <button confirmed-click="removeProduct(product.id)"
+                      ng-confirm-click="Do you really want to delete {{product.title}}?" >
+                        <span class="glyphicon glyphicon-remove-circle"></span> Delete</button>
+
+                </td>
             </tr>
             </tbody>
         </table>

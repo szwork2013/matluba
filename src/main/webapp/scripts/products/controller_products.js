@@ -5,17 +5,19 @@ shopstuffsApp.controller('ProductsCtrl', function ($scope,  Product, Image, $q) 
     $scope.products = [];
     $scope.search = {};
 
-    function observer (oldValue, newValue) {
-        if (oldValue !== newValue) { $scope.update(); };
+    function observer(oldValue, newValue) {
+        if (oldValue !== newValue) {
+            $scope.update();
+        }
     }
 
-    $scope.update = function() {
+    $scope.update = function () {
         var searchModel = angular.extend({}, $scope.search);
         Product.search({ page: $scope.page.index || 1 }, searchModel)
-            .$promise.then(function(response){
+            .$promise.then(function (response) {
                 $scope.products = response.products || [];
                 $scope.page.total = response.pages;
-        });
+            });
     };
 
     $scope.hoveredProduct = {};
@@ -33,6 +35,10 @@ shopstuffsApp.controller('ProductsCtrl', function ($scope,  Product, Image, $q) 
     $scope.$watchCollection('search', observer);
     $scope.$watch('page.index', observer);
 
+
     $scope.update();
 
+    $scope.removeProduct = function (productId) {
+        Product.deleteProduct({id: productId});
+    };
 });

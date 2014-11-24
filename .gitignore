@@ -1,6 +1,7 @@
 target
 node
 node_modules
+*.ppk
 .idea
 *.iml
 .classpath

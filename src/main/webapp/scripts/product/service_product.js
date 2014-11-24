@@ -5,6 +5,7 @@ shopstuffsApp
         return $resource('app/rest/products/:id', null, {
             'query': { method: 'GET', isArray: true},
             'get': { method: 'GET'},
+            'deleteProduct': { method: 'DELETE'},
             'addAttribute': {  method: 'POST', url: 'app/rest/product/attribute', params: {} },
             'deleteAttribute': {  method: 'DELETE', url: 'app/rest/product/attribute', params: {} },
             'search': {method: 'POST',  url:'app/rest/product/search/:page', params:{}}

@@ -7,6 +7,7 @@ import com.shopstuffs.repository.ImageRepository;
 import com.shopstuffs.repository.ProductRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +35,8 @@ public class ImageResource {
     private ImageRepository imageRepository;
     @Inject
     private ProductRepository productRepository;
+    @Inject
+    private Environment env;
 
     /**
      * POST  /rest/images -> Create a new image.
@@ -89,16 +92,16 @@ public class ImageResource {
         if (!multipartFile.isEmpty()) {
             final String name = multipartFile.getOriginalFilename();
             try {
-                final String baseUrl = "D:\\projects\\shopstuffs_with_jhipster\\matluba\\src\\main\\webapp\\images\\uploaded\\";
+                final String baseUrl = env.getProperty("matluba.uploadPath");
                 final File file = new File(baseUrl + name);
                 multipartFile.transferTo(file);
-                String thumbPath = createThumbnail(baseUrl,file);
+                String thumbPath = createThumbnail(baseUrl, file);
                 Image image = new Image();
                 image.setIsMain(false);
                 final Product product = productRepository.findOne(Long.valueOf(productId));
                 image.setProduct(product);
-                image.setFullImagePath("/images/uploaded/"+name);
-                image.setThumbnailImagePath("/images/uploaded/thumbs/"+name);
+                image.setFullImagePath("/images/uploaded/" + name);
+                image.setThumbnailImagePath("/images/uploaded/thumbs/" + name);
                 image = imageRepository.save(image);
 
                 return new ResponseEntity<Image>(image, HttpStatus.CREATED);
@@ -115,7 +118,7 @@ public class ImageResource {
         try {
             BufferedImage img = new BufferedImage(250, 160, BufferedImage.TYPE_INT_RGB);
             img.createGraphics().drawImage(ImageIO.read(file).getScaledInstance(250, 160, java.awt.Image.SCALE_SMOOTH), 0, 0, null);
-            final File thumbnail = new File(baseUrl+"thumbs\\" + file.getName());
+            final File thumbnail = new File(baseUrl + "thumbs\\" + file.getName());
             path = thumbnail.getPath();
             ImageIO.write(img, "jpg", thumbnail);
         } catch (IOException e) {
