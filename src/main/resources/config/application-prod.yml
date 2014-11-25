@@ -1,12 +1,12 @@
 server:
-    port: 8080
+    port: 80
 
 spring:
     profiles: prod
     
     datasource:
         dataSourceClassName: com.mysql.jdbc.jdbc2.optional.MysqlDataSource
-        url: jdbc:mysql://localhost:3306/matlubadb
+        url: jdbc:mysql://localhost:3306/matluba
         databaseName: matlubadb
         serverName: matluba
         username: root
@@ -52,3 +52,6 @@ cache:
     timeToLiveSeconds: 3600
     ehcache:
         maxBytesLocalHeap: 256M
+
+matluba:
+  uploadPath: /opt/codebase/matluba/src/main/webapp/images/uploaded
