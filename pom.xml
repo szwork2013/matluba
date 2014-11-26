@@ -377,11 +377,7 @@
             <artifactId>spring-security-oauth2</artifactId>
             <version>${spring-security-oauth2.version}</version>
         </dependency>
-        <dependency>
-            <groupId>io.github.jhipster.loaded</groupId>
-            <artifactId>core</artifactId>
-            <version>${jhipster-loaded.version}</version>
-        </dependency>
+
         <dependency>
             <groupId>com.mangofactory</groupId>
             <artifactId>swagger-springmvc</artifactId>
