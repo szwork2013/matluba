@@ -52,6 +52,7 @@ cache:
     timeToLiveSeconds: 3600
     ehcache:
         maxBytesLocalHeap: 256M
-
+server:
+  contextPath: /admin
 matluba:
   uploadPath: /opt/codebase/matluba/src/main/webapp/images/uploaded
