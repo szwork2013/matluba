@@ -10,7 +10,7 @@ spring:
         databaseName: matluba
         serverName: matluba
         username: root
-        password: secret
+        password:
         cachePrepStmts: true
         prepStmtCacheSize: 250
         prepStmtCacheSqlLimit: 2048
