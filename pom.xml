@@ -467,7 +467,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
                     <packagingExcludes>WEB-INF/lib/tomcat-*.jar</packagingExcludes>
-                    <warName>admin.war</warName>
+                    <warName>admin</warName>
                     <outputDirectory>/usr/local/tomcat7/webapps/</outputDirectory>
                 </configuration>
             </plugin>
