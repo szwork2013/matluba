@@ -453,7 +453,6 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
                     <packagingExcludes>WEB-INF/lib/tomcat-*.jar</packagingExcludes>
-                    <outputDirectory>/usr/local/tomcat7/webapps/</outputDirectory>
                 </configuration>
             </plugin>
 
