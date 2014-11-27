@@ -9,8 +9,8 @@ spring:
         url: jdbc:mysql://localhost:3306/matluba
         databaseName: matluba
         serverName: matluba
-        username: root
-        password:
+        username: matlubas_root
+        password: web@123
         cachePrepStmts: true
         prepStmtCacheSize: 250
         prepStmtCacheSqlLimit: 2048
