@@ -21,7 +21,7 @@ public class MethodRequestMatcher implements RequestMatcher {
         if (method == null) {
             return false;
         }
-        return request.getMethod().equals(method.name());
+        return request.getRequestURI().startsWith("/app/rest/") && request.getMethod().equals(method.name());
 
     }
 }
