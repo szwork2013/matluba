@@ -18,6 +18,7 @@ import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.oauth2.provider.expression.OAuth2MethodSecurityExpressionHandler;
 import org.springframework.security.web.context.SecurityContextPersistenceFilter;
 import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.inject.Inject;
 
@@ -42,17 +43,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring()
-            .antMatchers("/bower_components/**")
-            .antMatchers("/fonts/**")
-            .antMatchers("/images/**")
-            .antMatchers("/scripts/**")
-            .antMatchers("/styles/**")
-            .antMatchers("/views/**")
-            .antMatchers("/i18n/**")
-            .antMatchers("/swagger-ui/**")
-            .antMatchers("/app/rest/register")
-            .antMatchers("/app/rest/activate");
+
+        web.ignoring().requestMatchers(new MethodRequestMatcher(RequestMethod.GET))
+                .antMatchers("/bower_components/**")
+                .antMatchers("/fonts/**")
+                .antMatchers("/images/**")
+                .antMatchers("/scripts/**")
+                .antMatchers("/styles/**")
+                .antMatchers("/views/**")
+                .antMatchers("/i18n/**")
+                .antMatchers("/swagger-ui/**")
+                .antMatchers("/app/rest/register")
+                .antMatchers("/app/rest/activate");
     }
     
     

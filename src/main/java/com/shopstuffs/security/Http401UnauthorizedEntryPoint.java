@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,9 @@ public class Http401UnauthorizedEntryPoint implements AuthenticationEntryPoint {
             ServletException {
 
         log.debug("Pre-authenticated entry point called. Rejecting access");
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Access Denied");
+        boolean isGet = RequestMethod.GET.name().equals(request.getMethod());
+        if (!isGet) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Access Denied");
+        }
     }
 }
