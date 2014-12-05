@@ -22,8 +22,11 @@ public class MethodRequestMatcher implements RequestMatcher {
             return false;
         }
         final String requestURI = request.getRequestURI();
-        return requestURI.startsWith("/app/rest/") && !requestURI.contains("/app/rest/user") &&
-                request.getMethod().equals(method.name());
+        if (requestURI.contains("/oauth/token")||requestURI.startsWith("/app/rest/account")) {
+            return false;
+        }
+        return   (requestURI.startsWith("/app/rest/") && !requestURI.contains("/app/rest/user") &&
+                request.getMethod().equals(method.name()));
 
     }
 }
